@@ -5,6 +5,7 @@ import interpreter.virtualmachine.Program;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 
 public final class ByteCodeLoader {
@@ -30,6 +31,36 @@ public final class ByteCodeLoader {
      *      Then add newly created and initialize ByteCode to the program
      */
     public Program loadCodes() {
-       return null;
+
+        Program program = new Program();
+        String[] items;
+        String className;
+        Class c;
+        ByteCode bc;
+
+        try (this.bytesource.ready())
+        {
+            items = this.byteSource.readLine().split("\\s}");
+            className = items[0];
+            c = Class.forName("interpreter.bytecode" + className);
+            bc = (ByteCode) c.getDeclaredConstructor().newInstance();
+
+            for(int i =1; i < items.length; i ++)
+            {
+                args.add(items[i]);
+            }
+            bc.init(args);
+            program.add(bc);
+            args.clear();
+        }
+        catch (IOException | ClassNotFoundException | NoSuchMethodException | InstantiationException |
+               IllegalAccessException | InvocationTargetException e)
+        {
+            e.printStackTrace();
+            System.err.println(e);
+            System.exit(-2);
+        }
+
+        return program;
     }
 }
