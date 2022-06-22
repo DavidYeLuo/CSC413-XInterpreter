@@ -4,6 +4,8 @@ import interpreter.virtualmachine.RunTimeStack;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.html.HTMLBRElement;
+import test.TestHelper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,10 +28,7 @@ public class NewFrameTest
 
     @Test void singleFramePop()
     {
-        runTimeStack.push(0);
-        runTimeStack.push(0);
-        runTimeStack.push(0);
-        runTimeStack.push(0);
+        TestHelper.pushNStack(runTimeStack, 4);
         runTimeStack.newFrameAt(3);
         assertEquals(0, runTimeStack.popFrame());
     }
@@ -40,40 +39,30 @@ public class NewFrameTest
         runTimeStack.newFrameAt(0);
         assertEquals(0, runTimeStack.popFrame());
 
-        runTimeStack.push(0);
-        runTimeStack.push(0);
-        runTimeStack.push(0);
+        TestHelper.pushNStack(runTimeStack, 3);
         runTimeStack.newFrameAt(2);
         assertEquals(1, runTimeStack.popFrame());
     }
 
     @Test void multipleFramePop()
     {
-        for(int i = 0; i < 10; i++)
-        {
-            runTimeStack.push(i);
-        }
+        TestHelper.pushNStack(runTimeStack, 10);
+
         runTimeStack.newFrameAt(3);
         assertEquals(6, runTimeStack.popFrame());
 
-        for(int i = 0; i < 15; i++)
-        {
-            runTimeStack.push(i);
-        }
+        TestHelper.pushNStack(runTimeStack, 15);
+
         runTimeStack.newFrameAt(5);
         assertEquals(19, runTimeStack.popFrame());
 
-        for(int i = 0; i < 3; i++)
-        {
-            runTimeStack.push(i);
-        }
+        TestHelper.pushNStack(runTimeStack, 3);
+
         runTimeStack.newFrameAt(1);
         assertEquals(26, runTimeStack.popFrame());
 
-        for(int i = 0; i < 20; i++)
-        {
-            runTimeStack.push(i);
-        }
+        TestHelper.pushNStack(runTimeStack, 20);
+
         runTimeStack.newFrameAt(4);
         assertEquals(43, runTimeStack.popFrame());
     }
