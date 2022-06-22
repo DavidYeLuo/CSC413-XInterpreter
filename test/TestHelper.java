@@ -13,7 +13,7 @@ public abstract class TestHelper
    {
       for(int i = 0; i < num; i++)
       {
-         runTimeStack.push((int) Math.random());
+         runTimeStack.push((int) (Math.random() * 1000));
       }
    }
 
