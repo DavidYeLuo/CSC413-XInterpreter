@@ -69,8 +69,8 @@ public class LoadTest
 
         // Edit here
         TestHelper.pushNStack(runTimeStack, framePointer);
-        runTimeStack.push(432);
         runTimeStack.newFrameAt(0);
+        runTimeStack.push(432);
         TestHelper.pushNStack(runTimeStack, (stackSize - 1) - framePointer - offset);
 
         // Call
@@ -88,9 +88,9 @@ public class LoadTest
 
         // Edit here
 
-        TestHelper.pushNStack(runTimeStack, framePointer + 1);
+        TestHelper.pushNStack(runTimeStack, framePointer);
         runTimeStack.newFrameAt(0);
-        TestHelper.pushNStack(runTimeStack, offset - 1);
+        TestHelper.pushNStack(runTimeStack, offset);
         runTimeStack.push(321);
 
         TestHelper.pushNStack(runTimeStack, (stackSize - 1) - framePointer - offset);
@@ -110,12 +110,12 @@ public class LoadTest
 
         // Edit here
 
-        TestHelper.pushNStack(runTimeStack, 5+1);
+        TestHelper.pushNStack(runTimeStack, 5);
         runTimeStack.newFrameAt(0);
         TestHelper.pushNStack(runTimeStack, 5);
         runTimeStack.newFrameAt(0);
 
-        TestHelper.pushNStack(runTimeStack,  offset - 1);
+        TestHelper.pushNStack(runTimeStack,  offset);
         runTimeStack.push(4321);
         TestHelper.pushNStack(runTimeStack, (stackSize - 1) - framePointer - offset);
 

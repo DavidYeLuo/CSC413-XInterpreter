@@ -92,7 +92,7 @@ public class StoreTestUsingPushPopPeek
         runTimeStack.push(935); // Just to make sure it isn't by chance
 
         // build the rest
-        TestHelper.pushNStack(runTimeStack, (stackSize - 1) - 2 - framePointer - offset);
+        TestHelper.pushNStack(runTimeStack, (stackSize - 1) -1 - framePointer - offset);
         runTimeStack.push(123);
 
         // Call
@@ -121,11 +121,11 @@ public class StoreTestUsingPushPopPeek
         runTimeStack.newFrameAt(0);
 
         // build up to the offset
-        TestHelper.pushNStack(runTimeStack, offset - 1);
+        TestHelper.pushNStack(runTimeStack, offset-1);
         runTimeStack.push(935); // Just to make sure it isn't by chance
 
         // build the rest
-        TestHelper.pushNStack(runTimeStack, (stackSize - 1) - 1 - framePointer - offset);
+        TestHelper.pushNStack(runTimeStack, (stackSize - 1) - framePointer - offset);
         runTimeStack.push(123);
 
         // Call
@@ -150,9 +150,11 @@ public class StoreTestUsingPushPopPeek
         // Edit here
 
         // build up to the frame pointer
-        TestHelper.pushNStack(runTimeStack, 3);
+        TestHelper.pushNStack(runTimeStack, 5);
         runTimeStack.newFrameAt(0);
-        TestHelper.pushNStack(runTimeStack, framePointer - 3);
+        TestHelper.pushNStack(runTimeStack, 5);
+        runTimeStack.newFrameAt(0);
+        TestHelper.pushNStack(runTimeStack, offset);
         runTimeStack.newFrameAt(0);
 
         // build up to the offset
@@ -160,7 +162,7 @@ public class StoreTestUsingPushPopPeek
         runTimeStack.push(935); // Just to make sure it isn't by chance
 
         // build the rest
-        TestHelper.pushNStack(runTimeStack, (stackSize - 1) - 1 - framePointer - offset);
+        TestHelper.pushNStack(runTimeStack, (stackSize - 1) - framePointer - offset);
         runTimeStack.push(123);
 
         // Call

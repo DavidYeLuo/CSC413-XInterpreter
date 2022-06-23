@@ -30,18 +30,18 @@ public class NewFrameTest
     {
         TestHelper.pushNStack(runTimeStack, 4);
         runTimeStack.newFrameAt(3);
-        assertEquals(0, runTimeStack.popFrame());
+        assertEquals(1, runTimeStack.popFrame());
     }
 
     @Test void doubleFramePop()
     {
         runTimeStack.push(0);
         runTimeStack.newFrameAt(0);
-        assertEquals(0, runTimeStack.popFrame());
+        assertEquals(1, runTimeStack.popFrame());
 
         TestHelper.pushNStack(runTimeStack, 3);
         runTimeStack.newFrameAt(2);
-        assertEquals(1, runTimeStack.popFrame());
+        assertEquals(2, runTimeStack.popFrame());
     }
 
     @Test void multipleFramePop()
@@ -49,21 +49,21 @@ public class NewFrameTest
         TestHelper.pushNStack(runTimeStack, 10);
 
         runTimeStack.newFrameAt(3);
-        assertEquals(6, runTimeStack.popFrame());
+        assertEquals(7, runTimeStack.popFrame());
 
         TestHelper.pushNStack(runTimeStack, 15);
 
         runTimeStack.newFrameAt(5);
-        assertEquals(19, runTimeStack.popFrame());
+        assertEquals(20, runTimeStack.popFrame());
 
         TestHelper.pushNStack(runTimeStack, 3);
 
         runTimeStack.newFrameAt(1);
-        assertEquals(26, runTimeStack.popFrame());
+        assertEquals(27, runTimeStack.popFrame());
 
         TestHelper.pushNStack(runTimeStack, 20);
 
         runTimeStack.newFrameAt(4);
-        assertEquals(43, runTimeStack.popFrame());
+        assertEquals(44, runTimeStack.popFrame());
     }
 }
