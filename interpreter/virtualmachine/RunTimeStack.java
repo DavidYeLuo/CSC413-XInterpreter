@@ -68,6 +68,12 @@ public class RunTimeStack {
         ArrayList<ArrayList<Integer>> frameList = new ArrayList<>();
         ArrayList<Integer> frame = new ArrayList<>();
 
+        if(runTimeStack.isEmpty())
+        {
+            System.out.println("[]");
+            return;
+        }
+
         int pointer = pointerListClone.pop();
 
         // Makes sense to process backward because of stack data structure
