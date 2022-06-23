@@ -9,8 +9,8 @@
 
 #intlij .idea
 .idea
-.idea
 out/*
+*.iml
 
 
 #Netbeans
@@ -33,3 +33,5 @@ nbproject/*
 *.tar.gz
 *.rar
 
+# Test Package
+!test/resources/*
