@@ -10,14 +10,8 @@ public class ArgsCode extends ByteCode
     @Override
     public void init(ArrayList<String> args)
     {
-        if(args == null || !args.isEmpty()) return;
-        try
-        {
-            numOfArgs = Integer.parseInt(args.get(0));
-        } catch (Exception e)
-        {
-            System.out.println("Error: Failed to parse with StoreCode.");
-        }
+        if(ByteCode.isArgsNullOrEmpty(args)) return;
+        numOfArgs = ByteCode.parseInt(args.get(0));
     }
 
     @Override

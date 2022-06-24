@@ -11,7 +11,7 @@ public class LabelCode extends ByteCode
     @Override
     public void init(ArrayList<String> args)
     {
-        if(args == null || !args.isEmpty()) return;
+        if(ByteCode.isArgsNullOrEmpty(args)) return;
         label = args.get(0);
     }
 

@@ -12,14 +12,8 @@ public class StoreCode extends ByteCode
     @Override
     public void init(ArrayList<String> args)
     {
-        if(args == null || !args.isEmpty()) return;
-        try
-        {
-            offset = Integer.parseInt(args.get(0));
-        } catch (Exception e)
-        {
-            System.out.println("Error: Failed to parse with StoreCode.");
-        }
+        if(ByteCode.isArgsNullOrEmpty(args)) return;
+        offset = ByteCode.parseInt(args.get(0));
         if(args.size() > 1) identifier = args.get(1);
     }
 
