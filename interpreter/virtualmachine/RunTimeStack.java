@@ -27,6 +27,7 @@ public class RunTimeStack {
     // FrameStack Methods
     public void newFrameAt(int offset) { framePointer.push( getLastIndex() + 1 - offset); }
     public int popFrame() { return framePointer.pop(); }
+    public int getFrameSize() { return runTimeStack.size() - framePointer.peek(); }
 
     /**
      * Takes the value located offset amount above the current frame pointer
