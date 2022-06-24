@@ -83,4 +83,6 @@ public class VirtualMachine
 
         runTimeStack.newFrameAt(offset);
     }
+    public int getProgramCounter() { return programCounter; }
+    public void pushReturnAddress(int returnAddress) { this.returnAddress.push(returnAddress); }
 }
