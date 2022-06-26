@@ -55,7 +55,7 @@ public final class ByteCodeLoader
             {
                 // Tokenize read line.
                 line  = this.byteSource.readLine();
-                items = this.byteSource.readLine().split("\\s+}");
+                items = this.byteSource.readLine().split("\\s+");
 
                 // grab first token of line.
                 byteCodeName = items[0];
