@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import test.TestHelper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LoadTest
 {
@@ -12,10 +13,10 @@ public class LoadTest
 
     // Init is called in every test
     @BeforeEach
-    void init() { runTimeStack = new RunTimeStack(); }
+    void init() {runTimeStack = new RunTimeStack();}
 
     @AfterEach
-    void tearDown() { runTimeStack = null; }
+    void tearDown() {runTimeStack = null;}
 
     @Test
     void emptyFramePop()
@@ -23,105 +24,118 @@ public class LoadTest
         assertEquals(0, runTimeStack.popFrame());
     }
 
-    @Test void zeroOffsetZeroFrame()
+    @Test
+    void pushTenItems_CallNewFrameAtZero_CallLoadZero()
     {
-        // Param
-        int offset = 0;
-        int stackSize = 30;
-        int framePointer = 0; // Made up to simulate (There isn't a peek frame)
+        runTimeStack.push(13456);
+        TestHelper.pushNStack(runTimeStack, 9);
 
-        // Edit here
-
-        TestHelper.pushNStack(runTimeStack, framePointer + offset - 1);
-        runTimeStack.push(4321);
-        TestHelper.pushNStack(runTimeStack, (stackSize - 1) - framePointer - offset);
-
-        // Call
-        runTimeStack.load(offset);
-
-        assertEquals(4321, runTimeStack.pop());
-    }
-    @Test void singleOffsetZeroFrame()
-    {
-        // Param
-        int offset = 12;
-        int stackSize = 30;
-        int framePointer = 0; // Made up to simulate (There isn't a peek frame)
-
-        // Edit here
-
-        TestHelper.pushNStack(runTimeStack, offset);
-        runTimeStack.push(4321);
-        TestHelper.pushNStack(runTimeStack, (stackSize - 1) - framePointer - offset);
-
-        // Call
-        runTimeStack.load(offset);
-
-        assertEquals(4321, runTimeStack.pop());
+        runTimeStack.load(0);
+        assertEquals(13456, runTimeStack.pop());
     }
 
-    @Test void zeroOffsetSingleFrame()
+    @Test
+    void pushTenItems_CallNewFrameAtZero_CallLoadSix()
     {
-        // Param
-        int offset = 0;
-        int stackSize = 33;
-        int framePointer = 12; // Made up to simulate (There isn't a peek frame)
+       TestHelper.pushNStack(runTimeStack, 6);
+       runTimeStack.push(43124);
+       TestHelper.pushNStack(runTimeStack, 3);
 
-        // Edit here
-        TestHelper.pushNStack(runTimeStack, framePointer);
-        runTimeStack.newFrameAt(0);
-        runTimeStack.push(432);
-        TestHelper.pushNStack(runTimeStack, (stackSize - 1) - framePointer - offset);
+       runTimeStack.load(6);
+       assertEquals(43124, runTimeStack.pop());
+    }
+    @Test
+    void pushTenItems_CallNewFrameAtZero_CallLoadEight()
+    {
+        TestHelper.pushNStack(runTimeStack, 8);
+        runTimeStack.push(4312);
+        TestHelper.pushNStack(runTimeStack, 1);
 
-        // Call
-        runTimeStack.load(offset);
-
-        assertEquals(432, runTimeStack.pop());
+        runTimeStack.load(8);
+        assertEquals(4312, runTimeStack.pop());
     }
 
-    @Test void singleOffsetSingleFrame()
+    @Test
+    void pushTenItems_CallNewFrameAtZero_CallLoadTen()
     {
-        // Param
-        int offset = 3;
-        int stackSize = 30;
-        int framePointer = 12; // Made up to simulate (There isn't a peek frame)
+        TestHelper.pushNStack(runTimeStack, 9);
+        runTimeStack.push(4312);
 
-        // Edit here
-
-        TestHelper.pushNStack(runTimeStack, framePointer);
-        runTimeStack.newFrameAt(0);
-        TestHelper.pushNStack(runTimeStack, offset);
-        runTimeStack.push(321);
-
-        TestHelper.pushNStack(runTimeStack, (stackSize - 1) - framePointer - offset);
-
-        // Call
-        runTimeStack.load(offset);
-
-        assertEquals(321, runTimeStack.pop());
+        assertThrows(Exception.class, () ->
+        {
+            runTimeStack.load(10);
+        });
     }
 
-    @Test void singleOffsetTwoFrame()
+    @Test
+    void pushTenItems_CallNewFrameAtZero_CallLoadEleven()
     {
-        // Param
-        int offset = 2;
-        int stackSize = 30;
-        int framePointer = 10; // Made up to simulate (There isn't a peek frame)
+        TestHelper.pushNStack(runTimeStack, 9);
+        runTimeStack.push(4312);
 
-        // Edit here
+        assertThrows(Exception.class, () ->
+        {
+            runTimeStack.load(11);
+        });
+    }
+
+    @Test
+    void pushTenItems_CallNewFrameAtZero_CallLoadNegativeTen()
+    {
+
+        TestHelper.pushNStack(runTimeStack, 9);
+        runTimeStack.push(4312);
+
+        assertThrows(Exception.class, () ->
+        {
+            runTimeStack.load(-10);
+        });
+    }
+    @Test
+    void pushTenItems_CallNewFrameAtFive_CallLoadZero()
+    {
 
         TestHelper.pushNStack(runTimeStack, 5);
-        runTimeStack.newFrameAt(0);
-        TestHelper.pushNStack(runTimeStack, 5);
-        runTimeStack.newFrameAt(0);
+        runTimeStack.push(4312);
+        TestHelper.pushNStack(runTimeStack, 4);
+        runTimeStack.newFrameAt(5);
 
-        TestHelper.pushNStack(runTimeStack,  offset);
-        runTimeStack.push(4321);
-        TestHelper.pushNStack(runTimeStack, (stackSize - 1) - framePointer - offset);
+        runTimeStack.load(0);
+        assertEquals(4312, runTimeStack.pop());
+    }
+    @Test
+    void pushTenItems_CallNewFrameAtFour_CallLoadThree()
+    {
+        TestHelper.pushNStack(runTimeStack, 9);
+        runTimeStack.push(4312);
+        runTimeStack.newFrameAt(4);
 
-        // Call
-        runTimeStack.load(offset);
+        runTimeStack.load(3);
+        assertEquals(4312, runTimeStack.pop());
+    }
+    @Test
+    void pushZeroItem_CallNewFrameAtZero_CallLoadZero()
+    {
+        assertThrows(Exception.class, () ->
+        {
+            runTimeStack.load(0);
+        });
+    }
+    @Test
+    void pushZeroItems_CallNewFrameAtZero_CallLoadNegativeTen()
+    {
+        assertThrows(Exception.class, () ->
+        {
+            runTimeStack.load(-10);
+        });
+    }
 
-        assertEquals(4321, runTimeStack.pop());
+    @Test
+    void pushZeroItems_CallNewFrameAtZero_CallLoadTen()
+    {
+        assertThrows(Exception.class, () ->
+        {
+            runTimeStack.load(10);
+        });
     }
 }

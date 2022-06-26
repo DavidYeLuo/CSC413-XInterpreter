@@ -1,4 +1,4 @@
-package test.java.RunTimeStackTest;
+package Deprecated;
 
 import interpreter.virtualmachine.RunTimeStack;
 import org.junit.jupiter.api.AfterEach;
@@ -10,6 +10,10 @@ import test.TestHelper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Deperecated because it wasn't easy to track what went wrong.
+ */
+@Deprecated
 public class NewFrameTest
 {
     private RunTimeStack runTimeStack;
