@@ -24,9 +24,8 @@ public class LabelCode extends ByteCode
     /**
      * Main purpose is to register this label in the program
      * so that it can resolve address later.
-     * @param label
      */
-    public final String getLabel(String label)
+    public final String getLabel()
     {
         return label;
     }

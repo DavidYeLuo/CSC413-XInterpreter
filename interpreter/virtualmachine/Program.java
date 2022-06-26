@@ -1,6 +1,8 @@
 package interpreter.virtualmachine;
 
 import interpreter.bytecode.ByteCode;
+import interpreter.bytecode.JumpCode;
+import interpreter.bytecode.LabelCode;
 
 import java.util.*;
 
@@ -31,7 +33,7 @@ public class Program
     public void resolveAddress()
     {
         // We're using a stack to save us from needing to loop through the program again.
-        Stack<ByteCode> jumpableStack = new Stack<>();
+        Stack<JumpCode> jumpableStack = new Stack<>();
 
         for (ByteCode byteCode : program)
         {
@@ -39,13 +41,14 @@ public class Program
             if (byteCode.getClass() == LabelCode.class) // Only allow labels
             {
                 // Need to grab label from the ByteCode
-                labelToAddressMap.add(byteCode.getLabel());
+                LabelCode labelCode = (LabelCode) byteCode;
+                labelToAddressMap.add(labelCode.getLabel());
             }
 
             // Keep track of gotoByteCode to resolve it later.
             if (byteCode instanceof JumpCode)
             {
-                jumpableStack.add(byteCode);
+                jumpableStack.add((JumpCode) byteCode);
             }
         }
         // 2nd pass through the arrayList look for call, goto and falsebranch codes
@@ -53,13 +56,13 @@ public class Program
         //  Look at stored label codes and find the 1 that has the match label value.
 
         // Set the address of from the bytecode to the address retrieved from our map
-        ByteCode byteCode;
+        JumpCode jumpCode;
         int      address;
         while (!jumpableStack.isEmpty())
         {
-            byteCode = jumpableStack.pop();
-            address  = labelToAddressMap.get(byteCode.getLabel());
-            byteCode.setAddress(address);
+            jumpCode = jumpableStack.pop();
+            address  = labelToAddressMap.get(jumpCode.getLabel());
+            jumpCode.setAddress(address);
         }
     }
 
