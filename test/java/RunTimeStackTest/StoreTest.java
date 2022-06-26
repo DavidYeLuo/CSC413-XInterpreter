@@ -112,7 +112,6 @@ public class StoreTest
         runTimeStack.newFrameAt(4);
 
         runTimeStack.store(3);
-        TestHelper.popNStack(runTimeStack, 1);
 
         assertEquals(13456, runTimeStack.pop());
     }
