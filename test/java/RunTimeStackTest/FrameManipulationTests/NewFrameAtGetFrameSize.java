@@ -62,4 +62,30 @@ public class NewFrameAtGetFrameSize
         runTimeStack.newFrameAt(4);
         assertEquals(4, runTimeStack.getCurrentFrameSize());
     }
+    @Test
+    void pushThreeItems_callNewFrameAt_five_getCurrentFrameSize()
+    {
+        runTimeStack.newFrameAt(5);
+        assertEquals(5, runTimeStack.getCurrentFrameSize());
+    }
+    @Test
+    void pushThreeItems_callNewFrameAt_negativeOne_getCurrentFrameSize()
+    {
+        runTimeStack.newFrameAt(-1);
+        assertEquals(-1, runTimeStack.getCurrentFrameSize());
+    }
+
+    @Test
+    void pushThreeItems_callNewFrameAt_negativeTwo_getCurrentFrameSize()
+    {
+        runTimeStack.newFrameAt(-2);
+        assertEquals(-2, runTimeStack.getCurrentFrameSize());
+    }
+
+    @Test
+    void pushThreeItems_callNewFrameAt_negativeTen_getCurrentFrameSize()
+    {
+        runTimeStack.newFrameAt(-10);
+        assertEquals(-10, runTimeStack.getCurrentFrameSize());
+    }
 }
