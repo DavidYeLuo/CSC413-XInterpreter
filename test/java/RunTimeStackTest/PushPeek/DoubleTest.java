@@ -1,4 +1,4 @@
-package PushPop;
+package PushPeek;
 
 import interpreter.virtualmachine.RunTimeStack;
 import org.junit.jupiter.api.AfterEach;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@DisplayName("RunTimeStack_PushPop_Double")
+@DisplayName("RunTimeStack_PushPeek_Double")
 public class DoubleTest
 {
     private RunTimeStack runTimeStack;
@@ -26,68 +26,68 @@ public class DoubleTest
     void tearDown() {runTimeStack = null;}
 
     @Test
-    void pushSixPushNinePop()
+    void pushSixPushNinePeek()
     {
         runTimeStack.push(9);
-        assertEquals(9, runTimeStack.pop());
+        assertEquals(9, runTimeStack.peek());
     }
 
     @Test
-    void pushSixPushFourtyNinePop()
+    void pushSixPushFourtyNinePeek()
     {
         runTimeStack.push(49);
-        assertEquals(49, runTimeStack.pop());
+        assertEquals(49, runTimeStack.peek());
     }
 
     @Test
-    void pushSixPushThreeThousandPop()
+    void pushSixPushThreeThousandPeek()
     {
         runTimeStack.push(3000);
-        assertEquals(3000, runTimeStack.pop());
+        assertEquals(3000, runTimeStack.peek());
     }
 
     @Test
-    void pushSixPushZeroPop()
+    void pushSixPushZeroPeek()
     {
         runTimeStack.push(0);
-        assertEquals(0, runTimeStack.pop());
+        assertEquals(0, runTimeStack.peek());
     }
 
     @Test
-    void pushSixPushNegativeOnePop()
+    void pushSixPushNegativeOnePeek()
     {
         runTimeStack.push(-1);
-        assertEquals(-1, runTimeStack.pop());
+        assertEquals(-1, runTimeStack.peek());
     }
 
     @Test
-    void pushSixPushNegativeTwoThousandPop()
+    void pushSixPushNegativeTwoThousandPeek()
     {
         runTimeStack.push(-2000);
-        assertEquals(-2000, runTimeStack.pop());
+        assertEquals(-2000, runTimeStack.peek());
     }
 
-    @Test void pushSixPushThreePopPop()
+    @Test
+    void pushSixPushThreePeekPeek()
     {
         runTimeStack.push(3);
-        runTimeStack.pop();
-        assertEquals(6, runTimeStack.pop());
+        assertEquals(3, runTimeStack.peek());
+        assertEquals(3, runTimeStack.peek());
     }
 
-    @Test void pushSixPushFourPopPop()
+    @Test
+    void pushSixPushFourPeekPeek()
     {
 
         runTimeStack.push(4);
-        runTimeStack.pop();
-        assertEquals(6, runTimeStack.pop());
+        assertEquals(4, runTimeStack.peek());
+        assertEquals(4, runTimeStack.peek());
     }
 
     @Test
-    void popPop()
+    void peekPeek()
     {
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            runTimeStack.pop();
-            runTimeStack.pop();
-        });
+        assertEquals(6, runTimeStack.peek());
+        assertEquals(6, runTimeStack.peek());
     }
 }

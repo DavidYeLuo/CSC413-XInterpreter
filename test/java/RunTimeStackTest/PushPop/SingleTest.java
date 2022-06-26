@@ -5,7 +5,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("RunTimeStack_Single_Test")
+@DisplayName("RunTimeStack_PushPop_Single")
 class SingleTest
 {
     private RunTimeStack runTimeStack;
