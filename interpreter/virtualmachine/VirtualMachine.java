@@ -1,5 +1,7 @@
 package interpreter.virtualmachine;
 
+import interpreter.bytecode.ByteCode;
+
 import java.util.Stack;
 
 public class VirtualMachine
@@ -35,7 +37,14 @@ public class VirtualMachine
 
     public void executeProgram()
     {
-        System.out.println("executeProgram() isn't inplemented in VirtualMachine.");
+        ByteCode currentCode;
+        while(isRunning)
+        {
+            currentCode = program.getCode(programCounter);
+            currentCode.execute(this);
+
+            programCounter++;
+        }
     }
 
     // Code below are ByteCodeRequests
