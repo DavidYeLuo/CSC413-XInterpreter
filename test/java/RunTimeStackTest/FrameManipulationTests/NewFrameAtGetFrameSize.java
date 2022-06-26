@@ -8,7 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("RunTimeStack_NewFrameAt_PopFrame")
+/**
+ * Optional test
+ */
+@DisplayName("RunTimeStack_NewFrameAt_GetFrameSize")
 public class NewFrameAtGetFrameSize
 {
     private RunTimeStack runTimeStack;
@@ -27,23 +30,36 @@ public class NewFrameAtGetFrameSize
     void tearDown() {runTimeStack = null;}
 
     @Test
-    void pushThreeItems_callNewFrameAt_never_getFrameSize()
+    void pushThreeItems_callNewFrameAt_zero_getCurrentFrameSize()
     {
-        assertEquals(1, runTimeStack.getFrameSize());
+        assertEquals(3, runTimeStack.getCurrentFrameSize());
     }
 
     @Test
-    void pushThreeItems_callNewFrameAt_once_getFrameSize()
+    void pushThreeItems_callNewFrameAt_one_getCurrentFrameSize()
     {
-        runTimeStack.newFrameAt(0);
-        assertEquals(2, runTimeStack.getFrameSize());
-    }
-
-    @Test
-    void pushThreeItems_callNewFrameAt_twice_getFrameSize()
-    {
-        runTimeStack.newFrameAt(0);
         runTimeStack.newFrameAt(1);
-        assertEquals(3, runTimeStack.getFrameSize());
+        assertEquals(2, runTimeStack.getCurrentFrameSize());
+    }
+
+    @Test
+    void pushThreeItems_callNewFrameAt_two_getCurrentFrameSize()
+    {
+        runTimeStack.newFrameAt(2);
+        assertEquals(1, runTimeStack.getCurrentFrameSize());
+    }
+
+    @Test
+    void pushThreeItems_callNewFrameAt_three_getCurrentFrameSize()
+    {
+        runTimeStack.newFrameAt(3);
+        assertEquals(0, runTimeStack.getCurrentFrameSize());
+    }
+
+    @Test
+    void pushThreeItems_callNewFrameAt_four_getCurrentFrameSize()
+    {
+        runTimeStack.newFrameAt(4);
+        assertEquals(-1, runTimeStack.getCurrentFrameSize());
     }
 }
