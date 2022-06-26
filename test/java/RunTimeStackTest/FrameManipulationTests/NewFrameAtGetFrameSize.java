@@ -32,6 +32,7 @@ public class NewFrameAtGetFrameSize
     @Test
     void pushThreeItems_callNewFrameAt_zero_getCurrentFrameSize()
     {
+        runTimeStack.newFrameAt(0);
         assertEquals(0, runTimeStack.getCurrentFrameSize());
     }
 
