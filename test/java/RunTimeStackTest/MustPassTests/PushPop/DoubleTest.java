@@ -1,4 +1,4 @@
-package PushPop;
+package MustPassTests.PushPop;
 
 import interpreter.virtualmachine.RunTimeStack;
 import org.junit.jupiter.api.AfterEach;

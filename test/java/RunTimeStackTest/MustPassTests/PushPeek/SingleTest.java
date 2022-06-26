@@ -1,4 +1,4 @@
-package PushPeek;
+package MustPassTests.PushPeek;
 
 
 import interpreter.virtualmachine.RunTimeStack;
