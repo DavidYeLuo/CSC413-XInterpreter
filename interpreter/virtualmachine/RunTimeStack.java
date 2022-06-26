@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class RunTimeStack {
+public class RunTimeStack
+{
     private static boolean DEBUG = false;
 
     private List<Integer>  runTimeStack;
@@ -20,18 +21,23 @@ public class RunTimeStack {
     }
 
     // RunTimeStack methods
-    public int peek() { return runTimeStack.get(getLastIndex()); }
-    public void push(int num) { runTimeStack.add(num); }
-    public int pop() { return runTimeStack.remove(getLastIndex()); }
+    public int peek() {return runTimeStack.get(getLastIndex());}
+
+    public void push(int num) {runTimeStack.add(num);}
+
+    public int pop()          {return runTimeStack.remove(getLastIndex());}
 
     // FrameStack Methods
-    public void newFrameAt(int offset) { framePointer.push( getLastIndex() + 1 - offset); }
-    public int popFrame() { return framePointer.pop(); }
-    public int getFrameSize() { return runTimeStack.size() - framePointer.peek(); }
+    public void newFrameAt(int offset) {framePointer.push(getLastIndex() + 1 - offset);}
+
+    public int popFrame()            {return framePointer.pop();}
+
+    public int getCurrentFrameSize() {return runTimeStack.size() - framePointer.peek();}
 
     /**
      * Takes the value located offset amount above the current frame pointer
      * and push the value to the top of the stack.
+     *
      * @param offset
      * @return value that is loaded
      */
@@ -44,6 +50,7 @@ public class RunTimeStack {
 
     /**
      * Takes the top of the stack and place it at an offset above the current frame pointer
+     *
      * @param offset
      * @return value that is stored
      */
@@ -59,7 +66,7 @@ public class RunTimeStack {
         // Needed to not change the state of the RunTimeStack
         Stack<Integer> pointerListClone = (Stack<Integer>) framePointer.clone();
 
-        if(DEBUG)
+        if (DEBUG)
         {
             System.out.printf("FrameStack: %s\n", runTimeStack);
             System.out.printf("Pointerstack: %s\n", pointerListClone);
@@ -67,9 +74,9 @@ public class RunTimeStack {
 
         // Build a list to help print
         ArrayList<ArrayList<Integer>> frameList = new ArrayList<>();
-        ArrayList<Integer> frame = new ArrayList<>();
+        ArrayList<Integer>            frame     = new ArrayList<>();
 
-        if(runTimeStack.isEmpty())
+        if (runTimeStack.isEmpty())
         {
             System.out.println("[]");
             return;
@@ -93,31 +100,31 @@ public class RunTimeStack {
 
         // Build a String to print
         StringBuilder runTimeStackStringBuilder = new StringBuilder();
-        int lastFrame = frameList.size() - 1;
-        int lastIndex;
-        for(int _frame = 0; _frame <= lastFrame; _frame++)
+        int           lastFrame                 = frameList.size() - 1;
+        int           lastIndex;
+        for (int _frame = 0; _frame <= lastFrame; _frame++)
         {
             // Update lastIndex
             lastIndex = frameList.get(_frame).size() - 1;
 
             runTimeStackStringBuilder.append("[");
-            for(int frameIndex = 0; frameIndex <= lastIndex; frameIndex++)
+            for (int frameIndex = 0; frameIndex <= lastIndex; frameIndex++)
             {
                 runTimeStackStringBuilder.append(frameList.get(_frame).get(frameIndex));
 
-                if(frameIndex != lastIndex)
+                if (frameIndex != lastIndex)
                 {
                     runTimeStackStringBuilder.append(",");
                 }
             }
             runTimeStackStringBuilder.append("]");
 
-            if(_frame != lastFrame)
+            if (_frame != lastFrame)
             {
                 runTimeStackStringBuilder.append(" ");
             }
         }
-        if(DEBUG)
+        if (DEBUG)
         {
             System.out.printf("Raw Data: %s\n", frameList);
         }
@@ -127,6 +134,7 @@ public class RunTimeStack {
     }
 
     // Helpers:
-    private int getLastIndex() { return runTimeStack.size() - 1; }
-    private int getLastFrame() { return framePointer.peek(); }
+    private int getLastIndex() {return runTimeStack.size() - 1;}
+
+    private int getLastFrame() {return framePointer.peek();}
 }

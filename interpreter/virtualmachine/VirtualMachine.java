@@ -67,7 +67,7 @@ public class VirtualMachine
      */
     public int pop(int desiredAmount)
     {
-        int maximumPop = runTimeStack.getFrameSize();
+        int maximumPop = runTimeStack.getCurrentFrameSize();
         if (maximumPop < 1) return Integer.MIN_VALUE; // This shouldn't be allowed to happen.
 
         int popNum = Math.min(desiredAmount, maximumPop);
@@ -97,7 +97,7 @@ public class VirtualMachine
     {
         if (desiredOffset < 0) return;
 
-        int maxOffset = runTimeStack.getFrameSize();
+        int maxOffset = runTimeStack.getCurrentFrameSize();
         if (maxOffset < 1) return;
 
         int offset = Math.min(desiredOffset, maxOffset);
@@ -110,7 +110,7 @@ public class VirtualMachine
     {
         if (desiredOffset < 0) return;
 
-        int maxOffset = runTimeStack.getFrameSize();
+        int maxOffset = runTimeStack.getCurrentFrameSize();
         if (maxOffset < 1) return;
 
         int offset = Math.min(desiredOffset, maxOffset);
@@ -125,7 +125,7 @@ public class VirtualMachine
     {
         if (desiredOffset < 0) return;
 
-        int maxOffset = runTimeStack.getFrameSize();
+        int maxOffset = runTimeStack.getCurrentFrameSize();
         if (maxOffset < 1) return;
 
         int offset = Math.min(desiredOffset, maxOffset);
