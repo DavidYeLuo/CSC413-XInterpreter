@@ -1,4 +1,4 @@
-package interpreter;
+package interpreter.bytecode;
 
 import interpreter.bytecode.ByteCode;
 import interpreter.virtualmachine.VirtualMachine;
