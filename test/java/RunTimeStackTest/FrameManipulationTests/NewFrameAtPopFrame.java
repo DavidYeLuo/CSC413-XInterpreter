@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("RunTimeStack_NewFrameAtPopFrame")
+@DisplayName("RunTimeStack_NewFrameAt_PopFrame")
 public class NewFrameAtPopFrame
 {
     private RunTimeStack runTimeStack;
