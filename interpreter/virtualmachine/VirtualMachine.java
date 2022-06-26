@@ -12,9 +12,16 @@ public class VirtualMachine
     private boolean        isDumpModeOn;
 
     /**
-     * This is a flag for the pop method to pop the current frame.
+     * This is a flag for the pop methods to pop the current frame.
      */
     public static final int POP_CURRENT_FRAME = Integer.MIN_VALUE + 31455;
+
+    /**
+     * This is a flag for the pop methods to peek the current frame. <p>
+     * Saves us an instruction and it is better performant than using
+     * two commands: pop and then push
+     */
+    public static final int PEEK_RUNTIMESTACK = Integer.MIN_VALUE + 41399;
 
     public VirtualMachine(Program program)
     {
@@ -43,6 +50,9 @@ public class VirtualMachine
      * <p>
      * NOTE: This will also clear frame boundary!
      *
+     * To peek the top of the run time stack:
+     * set the desiredAmount as VirtualMachine.POP_PEEK_STACKFRAME
+     *
      * @param desiredAmount
      * @return returns the latests pop value
      */
@@ -54,11 +64,15 @@ public class VirtualMachine
         int popNum = Math.min(desiredAmount, maximumPop);
         if (popNum < 1) return Integer.MIN_VALUE; // This shouldn't be allowed to happen
 
-        // Check if user wants to pop the current stack
+        // Check for special commands
         if (desiredAmount == VirtualMachine.POP_CURRENT_FRAME)
         {
             popNum = maximumPop;
             runTimeStack.popFrame();
+        }
+        else if(desiredAmount == VirtualMachine.PEEK_RUNTIMESTACK)
+        {
+            return runTimeStack.peek();
         }
 
         for (int i = 0; i < popNum - 1; i++)
