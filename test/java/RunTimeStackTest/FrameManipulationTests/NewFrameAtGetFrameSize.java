@@ -32,34 +32,34 @@ public class NewFrameAtGetFrameSize
     @Test
     void pushThreeItems_callNewFrameAt_zero_getCurrentFrameSize()
     {
-        assertEquals(3, runTimeStack.getCurrentFrameSize());
+        assertEquals(0, runTimeStack.getCurrentFrameSize());
     }
 
     @Test
     void pushThreeItems_callNewFrameAt_one_getCurrentFrameSize()
     {
         runTimeStack.newFrameAt(1);
-        assertEquals(2, runTimeStack.getCurrentFrameSize());
+        assertEquals(1, runTimeStack.getCurrentFrameSize());
     }
 
     @Test
     void pushThreeItems_callNewFrameAt_two_getCurrentFrameSize()
     {
         runTimeStack.newFrameAt(2);
-        assertEquals(1, runTimeStack.getCurrentFrameSize());
+        assertEquals(2, runTimeStack.getCurrentFrameSize());
     }
 
     @Test
     void pushThreeItems_callNewFrameAt_three_getCurrentFrameSize()
     {
         runTimeStack.newFrameAt(3);
-        assertEquals(0, runTimeStack.getCurrentFrameSize());
+        assertEquals(3, runTimeStack.getCurrentFrameSize());
     }
 
     @Test
     void pushThreeItems_callNewFrameAt_four_getCurrentFrameSize()
     {
         runTimeStack.newFrameAt(4);
-        assertEquals(-1, runTimeStack.getCurrentFrameSize());
+        assertEquals(4, runTimeStack.getCurrentFrameSize());
     }
 }
