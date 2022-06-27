@@ -109,26 +109,18 @@ public class VirtualMachine
 
     public void store(int desiredOffset)
     {
-        if (desiredOffset < 0) return;
-
-        int maxOffset = runTimeStack.getCurrentFrameSize();
-        if (maxOffset < 1) return;
-
-        int offset = Math.min(desiredOffset, maxOffset);
-        if (offset < 1) return;
+        // -1 because offset starts at 0
+        int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
+        int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
 
         runTimeStack.store(offset);
     }
 
     public void load(int desiredOffset)
     {
-        if (desiredOffset < 0) return;
-
-        int maxOffset = runTimeStack.getCurrentFrameSize();
-        if (maxOffset < 1) return;
-
-        int offset = Math.min(desiredOffset, maxOffset);
-        if (offset < 1) return;
+        // -1 because offset starts at 0
+        int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
+        int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
 
         runTimeStack.load(offset);
     }
@@ -137,13 +129,9 @@ public class VirtualMachine
 
     public void newFrameAt(int desiredOffset)
     {
-        if (desiredOffset < 0) return;
-
-        int maxOffset = runTimeStack.getCurrentFrameSize();
-        if (maxOffset < 1) return;
-
-        int offset = Math.min(desiredOffset, maxOffset);
-        if (offset < 1) return;
+        // -1 because offset starts at 0
+        int maxOffset = runTimeStack.getSize() - 1;
+        int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
 
         runTimeStack.newFrameAt(offset);
     }
@@ -159,5 +147,12 @@ public class VirtualMachine
     private static boolean isPopCommand(int number)
     {
         return number == VirtualMachine.PEEK_RUNTIMESTACK || number == VirtualMachine.POP_CURRENT_FRAME;
+    }
+    private static int getValueBetweenZeroAndMax(int value, int maxValue)
+    {
+        if(value < 0) return 0;
+        if(value > maxValue) return maxValue;
+
+        return value;
     }
 }

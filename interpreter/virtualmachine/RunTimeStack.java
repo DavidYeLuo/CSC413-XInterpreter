@@ -133,6 +133,11 @@ public class RunTimeStack
         System.out.println(runTimeStackStringBuilder);
     }
 
+    public int getSize()
+    {
+        return runTimeStack.size();
+    }
+
     // Helpers:
     private int getLastIndex() {return runTimeStack.size() - 1;}
 
