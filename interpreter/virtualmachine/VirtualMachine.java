@@ -40,7 +40,7 @@ public class VirtualMachine
         isRunning = true;
 
         ByteCode currentCode;
-        while(isRunning)
+        while (isRunning)
         {
             currentCode = program.getCode(programCounter);
             currentCode.execute(this);
@@ -60,7 +60,7 @@ public class VirtualMachine
      * set the desiredAmount as VirualMachine.POP_CURRENT_STACK
      * <p>
      * NOTE: This will also clear frame boundary!
-     *
+     * <p>
      * To peek the top of the run time stack:
      * set the desiredAmount as VirtualMachine.POP_PEEK_STACKFRAME
      *
@@ -73,26 +73,24 @@ public class VirtualMachine
         int popNumDecided; // the amount of pop decided
 
         boolean isCommand = VirtualMachine.isPopCommand(desiredAmount);
-        if(isCommand)
+        if (isCommand)
         {
             // Check for special commands
             if (desiredAmount == VirtualMachine.POP_CURRENT_FRAME)
             {
                 popNumDecided = maximumPop;
                 runTimeStack.popFrame();
-            }
-            else if(desiredAmount == VirtualMachine.PEEK_RUNTIMESTACK)
+                return Integer.MIN_VALUE;
+            } else if (desiredAmount == VirtualMachine.PEEK_RUNTIMESTACK)
             {
                 return runTimeStack.peek();
-            }
-            else
+            } else
             {
                 // Shouldn't happen
                 System.out.println("Error: Popcode shouldn't get here.");
                 popNumDecided = maximumPop;
             }
-        }
-        else
+        } else
         {
             if (maximumPop < 1) return Integer.MIN_VALUE; // This shouldn't be allowed to happen.
 
@@ -155,11 +153,11 @@ public class VirtualMachine
     public void pushReturnAddress(int returnAddress) {this.returnAddress.push(returnAddress);}
 
     public int popReturnAddress()                    {return this.returnAddress.pop();}
-    public void setDumpMode(boolean mode) { isDumpModeOn = mode; }
+
+    public void setDumpMode(boolean mode)            {isDumpModeOn = mode;}
 
     private static boolean isPopCommand(int number)
     {
-        return number == VirtualMachine.PEEK_RUNTIMESTACK
-                || number == VirtualMachine.POP_CURRENT_FRAME;
+        return number == VirtualMachine.PEEK_RUNTIMESTACK || number == VirtualMachine.POP_CURRENT_FRAME;
     }
 }
