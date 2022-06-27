@@ -142,7 +142,10 @@ public class VirtualMachine
 
     public void pushReturnAddress(int returnAddress) {this.returnAddress.push(returnAddress);}
 
-    public int popReturnAddress()                    {return this.returnAddress.pop();}
+    public int popReturnAddress()                    {
+        if(returnAddress.isEmpty()) return Integer.MIN_VALUE;
+        return this.returnAddress.pop();
+    }
 
     public void setDumpMode(boolean mode)            {isDumpModeOn = mode;}
 
