@@ -23,19 +23,20 @@ public class ReadCode extends ByteCode
     @Override
     public void execute(VirtualMachine virtualMachine)
     {
-        // Prompt user
-        System.out.println("Please enter an integer : ");
-
         // Ask user for input. Repeat if value isn't an integer.
         boolean isValidInput = false;
         while (!isValidInput)
         {
+            // Prompt user
+            System.out.println("Please enter an integer : ");
+
             try
             {
                 userValue    = scanner.nextInt();
                 isValidInput = true;
             } catch (Exception e)
             {
+                scanner.nextLine();
             }
         }
     }
