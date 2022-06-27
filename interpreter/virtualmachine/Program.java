@@ -35,8 +35,10 @@ public class Program
         // We're using a stack to save us from needing to loop through the program again.
         Stack<JumpCode> jumpableStack = new Stack<>();
 
-        for (ByteCode byteCode : program)
+        for (int i = 0; i < program.size(); i++)
         {
+            ByteCode byteCode = program.get(i);
+
             // 1st pass through the arrayList keeping track of label codes and their labels.
             if (byteCode.getClass() == LabelCode.class) // Only allow labels
             {
@@ -50,6 +52,7 @@ public class Program
             {
                 jumpableStack.add((JumpCode) byteCode);
             }
+            labelToAddressMap.incrementCounter();
         }
         // 2nd pass through the arrayList look for call, goto and falsebranch codes
         // and do the following:
@@ -86,6 +89,10 @@ public class Program
         public void add(String label)
         {
             map.put(label, latestProgramCounter);
+        }
+
+        public void incrementCounter()
+        {
             latestProgramCounter++;
         }
 
