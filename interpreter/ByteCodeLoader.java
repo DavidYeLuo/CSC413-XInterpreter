@@ -42,11 +42,12 @@ public final class ByteCodeLoader
         String[] items; // Will be used to store bytecode arguments
         String   line;
 
-        String byteCodeName;  // ByteCode name from .x.cod file.
-        String className;     // Classname after its mapped from name in source code to class name.
+        String            byteCodeName;  // ByteCode name from .x.cod file.
+        String
+                          className;     // Classname after its mapped from name in source code to class name.
         Class             classBlueprint;
         ByteCode          bc;
-        ArrayList<String> args = new ArrayList<>();
+        ArrayList<String> args;
 
         // Process every bytecode
         try
@@ -55,7 +56,7 @@ public final class ByteCodeLoader
             {
                 // Tokenize read line.
                 line  = this.byteSource.readLine();
-                items = this.byteSource.readLine().split("\\s+");
+                items = line.split("\\s+");
 
                 // grab first token of line.
                 byteCodeName = items[0];
@@ -70,6 +71,7 @@ public final class ByteCodeLoader
                 // create a new instance of bytecode using constructor.
                 bc = (ByteCode) classBlueprint.getDeclaredConstructor().newInstance();
 
+                args = new ArrayList<>();
                 for (int i = 0; i < items.length; i++)
                 {
                     args.add(items[i]);
