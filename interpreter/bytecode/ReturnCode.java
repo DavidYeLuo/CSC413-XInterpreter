@@ -24,7 +24,8 @@ public class ReturnCode extends ByteCode
         virtualMachine.pop(VirtualMachine.POP_FRAME);
 
         // Push return value to the caller's frame
-        virtualMachine.push(returnValue);
+        if(returnValue != VirtualMachine.ERROR_RETURN_CODE)
+            virtualMachine.push(returnValue);
 
         // Transfer control back to the caller
         virtualMachine.setProgramCounter(virtualMachine.popReturnAddress());
