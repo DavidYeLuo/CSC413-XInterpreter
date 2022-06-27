@@ -58,6 +58,17 @@ public class ReturnAddressTest
         virtualMachine.pushReturnAddress(1234);
         virtualMachine.pushReturnAddress(123);
         virtualMachine.popReturnAddress();
-        assertEquals(124, virtualMachine.popReturnAddress());
+        assertEquals(1234, virtualMachine.popReturnAddress());
+    }
+
+    @Test
+    void pushThreeItems_popThrice()
+    {
+        virtualMachine.pushReturnAddress(1234);
+        virtualMachine.pushReturnAddress(123);
+        virtualMachine.pushReturnAddress(452352);
+        virtualMachine.popReturnAddress();
+        virtualMachine.popReturnAddress();
+        assertEquals(1234, virtualMachine.popReturnAddress());
     }
 }
