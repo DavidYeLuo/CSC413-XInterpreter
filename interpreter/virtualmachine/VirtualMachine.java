@@ -16,7 +16,7 @@ public class VirtualMachine
     /**
      * This is a flag for the pop methods to pop the current frame.
      */
-    public static final int POP_CURRENT_FRAME = Integer.MIN_VALUE + 31455;
+    public static final int POP_FRAME = Integer.MIN_VALUE + 31455;
 
     /**
      * This is a flag for the pop methods to peek the current frame. <p>
@@ -57,7 +57,7 @@ public class VirtualMachine
      * Set the desiredAmount for the amount of pops.
      * <p>
      * To pop the current frame:
-     * set the desiredAmount as VirualMachine.POP_CURRENT_STACK
+     * set the desiredAmount as VirualMachine.POP_STACK
      * <p>
      * NOTE: This will also clear frame boundary!
      * <p>
@@ -76,11 +76,10 @@ public class VirtualMachine
         if (isCommand)
         {
             // Check for special commands
-            if (desiredAmount == VirtualMachine.POP_CURRENT_FRAME)
+            if (desiredAmount == VirtualMachine.POP_FRAME)
             {
-                popNumDecided = maximumPop;
-                runTimeStack.popFrame();
-                return Integer.MIN_VALUE;
+                // Doesn't handle cleaning!
+                return runTimeStack.popFrame();
             } else if (desiredAmount == VirtualMachine.PEEK_RUNTIMESTACK)
             {
                 return runTimeStack.peek();
@@ -146,7 +145,7 @@ public class VirtualMachine
 
     private static boolean isPopCommand(int number)
     {
-        return number == VirtualMachine.PEEK_RUNTIMESTACK || number == VirtualMachine.POP_CURRENT_FRAME;
+        return number == VirtualMachine.PEEK_RUNTIMESTACK || number == VirtualMachine.POP_FRAME;
     }
     private static int getValueBetweenZeroAndMax(int value, int maxValue)
     {

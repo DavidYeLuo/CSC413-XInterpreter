@@ -11,7 +11,7 @@ public class ReturnCode extends JumpCode
         int returnValue = virtualMachine.pop(1);
 
         // Clean up the frame AND removes the boundary
-        virtualMachine.pop(VirtualMachine.POP_CURRENT_FRAME);
+        virtualMachine.pop(VirtualMachine.POP_FRAME);
 
         // Push return value to the caller's frame
         virtualMachine.push(returnValue);
