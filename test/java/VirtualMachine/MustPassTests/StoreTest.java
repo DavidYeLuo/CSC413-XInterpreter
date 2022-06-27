@@ -68,7 +68,7 @@ public class StoreTest
         TestHelper.pushNStack(virtualMachine, 9);
         virtualMachine.push(13456);
 
-        virtualMachine.store(8);
+        virtualMachine.store(10);
 
         assertEquals(13456, virtualMachine.pop(1));
     }
@@ -87,8 +87,22 @@ public class StoreTest
     @Test
     void pushTenItems_CallNewFrameAtZero_CallStoreNegativeTen()
     {
-        virtualMachine.push(4312);
         TestHelper.pushNStack(virtualMachine, 9);
+        virtualMachine.push(4312);
+
+        virtualMachine.store(-10);
+
+        TestHelper.popNStack(virtualMachine, 9);
+        assertEquals(4312, virtualMachine.pop(1));
+    }
+
+    @Test
+    void pushTenItems_CallNewFrameAtZero_CallStoreNine()
+    {
+        TestHelper.pushNStack(virtualMachine, 9);
+        virtualMachine.push(4312);
+
+        virtualMachine.store(9);
 
         assertEquals(4312, virtualMachine.pop(1));
     }
