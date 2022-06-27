@@ -10,7 +10,7 @@ import test.TestHelper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DisplayName("VirtualMachine_StoreTest")
+@DisplayName("VirtualMachine_NewFrameTest")
 public class NewFrameTest
 {
     private VirtualMachine virtualMachine;
