@@ -99,7 +99,7 @@ public class VirtualMachine
             maximumPop = runTimeStack.getCurrentFrameSize();
             popNumDecided = VirtualMachine.getValueBetweenZeroAndMax(desiredAmount, maximumPop);
 
-            if(popNumDecided == 0) return ERROR_RETURN_CODE;
+            if(popNumDecided <= 0) return ERROR_RETURN_CODE;
         }
 
         for (int i = 0; i < popNumDecided - 1; i++)
