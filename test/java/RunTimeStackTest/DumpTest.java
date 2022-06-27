@@ -1,10 +1,12 @@
 import interpreter.virtualmachine.RunTimeStack;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("RunTimeStack_DumpTest")
 public class DumpTest
 {
     private RunTimeStack runTimeStack;
@@ -27,6 +29,14 @@ public class DumpTest
                 runTimeStack.newFrameAt(0);
             }
         }
+        System.out.println("*** RunTimeStack");
+        System.out.println("Dump Test");
+        System.out.println("Expected: [1,2,3] [4,5,6] [7,8]");
+        System.out.print("Result: ");
+
+        // Not sure why dump() doesn't return a string value so this is how we are testing
         runTimeStack.dump();
+
+        System.out.println("***");
     }
 }
