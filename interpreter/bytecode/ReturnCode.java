@@ -2,8 +2,18 @@ package interpreter.bytecode;
 
 import interpreter.virtualmachine.VirtualMachine;
 
-public class ReturnCode extends JumpCode
+import java.util.ArrayList;
+
+public class ReturnCode extends ByteCode
 {
+    private String optionalIdentifier;
+    @Override
+    public void init(ArrayList<String> args)
+    {
+        if(ByteCode.isArgsNullOrEmpty(args)) return;
+        optionalIdentifier = args.get(0);
+    }
+
     @Override
     public void execute(VirtualMachine virtualMachine)
     {
