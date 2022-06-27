@@ -16,7 +16,11 @@ public class DoubleTest
 
     // Init is called in every test
     @BeforeEach
-    void init() {virtualMachine = new VirtualMachine(new Program());}
+    void init()
+    {
+        virtualMachine = new VirtualMachine(new Program());
+        virtualMachine.push(6);
+    }
 
     @AfterEach
     void tearDown() {virtualMachine = null;}
@@ -67,8 +71,8 @@ public class DoubleTest
     void pushSixPushThreePeek_popPeekRuntimeStackTwice()
     {
         virtualMachine.push(3);
-        assertEquals(-3, virtualMachine.pop(VirtualMachine.PEEK_RUNTIMESTACK));
-        assertEquals(-3, virtualMachine.pop(VirtualMachine.PEEK_RUNTIMESTACK));
+        assertEquals(3, virtualMachine.pop(VirtualMachine.PEEK_RUNTIMESTACK));
+        assertEquals(3, virtualMachine.pop(VirtualMachine.PEEK_RUNTIMESTACK));
     }
 
     @Test
