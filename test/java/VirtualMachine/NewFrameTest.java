@@ -45,7 +45,7 @@ public class NewFrameTest
     void newState_PopTwice()
     {
         assertEquals(0, virtualMachine.pop(VirtualMachine.POP_FRAME));
-        assertEquals(0, virtualMachine.pop(VirtualMachine.POP_FRAME));
+        assertEquals(Integer.MIN_VALUE, virtualMachine.pop(VirtualMachine.POP_FRAME));
     }
 
     @Test
