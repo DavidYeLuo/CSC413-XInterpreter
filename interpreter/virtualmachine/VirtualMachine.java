@@ -24,7 +24,7 @@ public class VirtualMachine
      * two commands: pop and then push
      */
     public static final int PEEK_RUNTIMESTACK = Integer.MIN_VALUE + 41399;
-
+    public static final int POP_CLEAN_FRAME = Integer.MAX_VALUE;
     public static final int ERROR_RETURN_CODE = Integer.MIN_VALUE;
 
     public VirtualMachine(Program program)
@@ -125,6 +125,7 @@ public class VirtualMachine
         // -1 because offset starts at 0
         int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
         int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
+        if(offset <= 0) offset = 0;
 
         runTimeStack.load(offset);
     }
@@ -151,6 +152,7 @@ public class VirtualMachine
 
     public void setDumpMode(boolean mode)            {isDumpModeOn = mode;}
 
+    // Helpers
     private static boolean isPopCommand(int number)
     {
         return number == VirtualMachine.PEEK_RUNTIMESTACK || number == VirtualMachine.POP_FRAME;

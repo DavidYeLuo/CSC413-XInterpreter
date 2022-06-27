@@ -21,6 +21,7 @@ public class ReturnCode extends ByteCode
         int returnValue = virtualMachine.pop(1);
 
         // Clean up the frame AND removes the boundary
+        virtualMachine.pop(virtualMachine.POP_CLEAN_FRAME);
         virtualMachine.pop(VirtualMachine.POP_FRAME);
 
         // Push return value to the caller's frame
