@@ -25,6 +25,8 @@ public class VirtualMachine
      */
     public static final int PEEK_RUNTIMESTACK = Integer.MIN_VALUE + 41399;
 
+    public static final int ERROR_RETURN_CODE = Integer.MIN_VALUE;
+
     public VirtualMachine(Program program)
     {
         runTimeStack   = new RunTimeStack();
@@ -79,7 +81,7 @@ public class VirtualMachine
             if (desiredAmount == VirtualMachine.POP_FRAME)
             {
                 // Doesn't handle cleaning!
-                if(runTimeStack.getFrameListSize() <= 0) return Integer.MIN_VALUE;
+                if(runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
                 return runTimeStack.popFrame();
             } else if (desiredAmount == VirtualMachine.PEEK_RUNTIMESTACK)
             {
@@ -93,11 +95,11 @@ public class VirtualMachine
             }
         } else
         {
-            if(runTimeStack.getFrameListSize() <= 0) return Integer.MIN_VALUE;
+            if(runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
             maximumPop = runTimeStack.getCurrentFrameSize();
             popNumDecided = VirtualMachine.getValueBetweenZeroAndMax(desiredAmount, maximumPop);
 
-            if(popNumDecided == 0) return Integer.MIN_VALUE;
+            if(popNumDecided == 0) return ERROR_RETURN_CODE;
         }
 
         for (int i = 0; i < popNumDecided - 1; i++)
@@ -143,7 +145,7 @@ public class VirtualMachine
     public void pushReturnAddress(int returnAddress) {this.returnAddress.push(returnAddress);}
 
     public int popReturnAddress()                    {
-        if(returnAddress.isEmpty()) return Integer.MIN_VALUE;
+        if(returnAddress.isEmpty()) return ERROR_RETURN_CODE;
         return this.returnAddress.pop();
     }
 
