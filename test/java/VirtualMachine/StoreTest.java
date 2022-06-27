@@ -1,4 +1,4 @@
-package VirtualMachine.MustPassTests;
+package VirtualMachine;
 
 import interpreter.virtualmachine.Program;
 import interpreter.virtualmachine.RunTimeStack;
