@@ -69,21 +69,33 @@ public class VirtualMachine
      */
     public int pop(int desiredAmount)
     {
+        boolean isCommand = VirtualMachine.isPopCommand(desiredAmount);
         int maximumPop = runTimeStack.getCurrentFrameSize();
-        if (maximumPop < 1) return Integer.MIN_VALUE; // This shouldn't be allowed to happen.
-
-        int popNum = Math.min(desiredAmount, maximumPop);
-        if (popNum < 1) return Integer.MIN_VALUE; // This shouldn't be allowed to happen
-
-        // Check for special commands
-        if (desiredAmount == VirtualMachine.POP_CURRENT_FRAME)
+        int popNum;
+        if(isCommand)
         {
-            popNum = maximumPop;
-            runTimeStack.popFrame();
+            // Check for special commands
+            if (desiredAmount == VirtualMachine.POP_CURRENT_FRAME)
+            {
+                popNum = maximumPop;
+                runTimeStack.popFrame();
+            }
+            else if(desiredAmount == VirtualMachine.PEEK_RUNTIMESTACK)
+            {
+                return runTimeStack.peek();
+            }
+            else
+            {
+                // Shouldn't happen
+                popNum = maximumPop;
+            }
         }
-        else if(desiredAmount == VirtualMachine.PEEK_RUNTIMESTACK)
+        else
         {
-            return runTimeStack.peek();
+            if (maximumPop < 1) return Integer.MIN_VALUE; // This shouldn't be allowed to happen.
+
+            popNum = Math.min(desiredAmount, maximumPop);
+            if (popNum < 1) return Integer.MIN_VALUE; // This shouldn't be allowed to happen
         }
 
         for (int i = 0; i < popNum - 1; i++)
@@ -142,4 +154,10 @@ public class VirtualMachine
 
     public int popReturnAddress()                    {return this.returnAddress.pop();}
     public void setDumpMode(boolean mode) { isDumpModeOn = mode; }
+
+    private static boolean isPopCommand(int number)
+    {
+        return number == VirtualMachine.PEEK_RUNTIMESTACK
+                || number == VirtualMachine.POP_CURRENT_FRAME;
+    }
 }
