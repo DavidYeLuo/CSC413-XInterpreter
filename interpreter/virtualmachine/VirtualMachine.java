@@ -90,13 +90,13 @@ public class VirtualMachine
             {
                 // Shouldn't happen
                 System.out.println("Error: Popcode shouldn't get here.");
-                maximumPop = runTimeStack.getCurrentFrameSize();
+                maximumPop = this.getCurrentFrameSize();
                 popNumDecided = maximumPop;
             }
         } else
         {
             if(runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
-            maximumPop = runTimeStack.getCurrentFrameSize();
+            maximumPop = this.getCurrentFrameSize();
             popNumDecided = VirtualMachine.getValueBetweenZeroAndMax(desiredAmount, maximumPop);
 
             if(popNumDecided <= 0) return ERROR_RETURN_CODE;
@@ -114,7 +114,7 @@ public class VirtualMachine
     public void store(int desiredOffset)
     {
         // -1 because offset starts at 0
-        int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
+        int maxOffset = this.getCurrentFrameSize() - 1;
         int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
 
         runTimeStack.store(offset);
@@ -123,7 +123,7 @@ public class VirtualMachine
     public void load(int desiredOffset)
     {
         // -1 because offset starts at 0
-        int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
+        int maxOffset = this.getCurrentFrameSize() - 1;
         int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
         if(offset <= 0) offset = 0;
 
@@ -153,6 +153,11 @@ public class VirtualMachine
     public void setDumpMode(boolean mode)            {isDumpModeOn = mode;}
 
     // Helpers
+    private int getCurrentFrameSize()
+    {
+        int size = runTimeStack.getCurrentFrameSize();
+        return size < 0? 0 : size;
+    }
     private static boolean isPopCommand(int number)
     {
         return number == VirtualMachine.PEEK_RUNTIMESTACK || number == VirtualMachine.POP_FRAME;
