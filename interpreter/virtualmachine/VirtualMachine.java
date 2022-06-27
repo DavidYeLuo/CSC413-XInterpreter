@@ -69,7 +69,7 @@ public class VirtualMachine
      */
     public int pop(int desiredAmount)
     {
-        int maximumPop = runTimeStack.getCurrentFrameSize();
+        int maximumPop;
         int popNumDecided; // the amount of pop decided
 
         boolean isCommand = VirtualMachine.isPopCommand(desiredAmount);
@@ -79,6 +79,7 @@ public class VirtualMachine
             if (desiredAmount == VirtualMachine.POP_FRAME)
             {
                 // Doesn't handle cleaning!
+                if(runTimeStack.getFrameListSize() <= 0) return Integer.MIN_VALUE;
                 return runTimeStack.popFrame();
             } else if (desiredAmount == VirtualMachine.PEEK_RUNTIMESTACK)
             {
@@ -87,14 +88,16 @@ public class VirtualMachine
             {
                 // Shouldn't happen
                 System.out.println("Error: Popcode shouldn't get here.");
+                maximumPop = runTimeStack.getCurrentFrameSize();
                 popNumDecided = maximumPop;
             }
         } else
         {
-            if (maximumPop < 1) return Integer.MIN_VALUE; // This shouldn't be allowed to happen.
+            if(runTimeStack.getFrameListSize() <= 0) return Integer.MIN_VALUE;
+            maximumPop = runTimeStack.getCurrentFrameSize();
+            popNumDecided = VirtualMachine.getValueBetweenZeroAndMax(desiredAmount, maximumPop);
 
-            popNumDecided = Math.min(desiredAmount, maximumPop);
-            if (popNumDecided < 1) return Integer.MIN_VALUE; // This shouldn't be allowed to happen
+            if(popNumDecided == 0) return Integer.MIN_VALUE;
         }
 
         for (int i = 0; i < popNumDecided - 1; i++)

@@ -138,6 +138,11 @@ public class RunTimeStack
         return runTimeStack.size();
     }
 
+    public int getFrameListSize()
+    {
+        return framePointer.size();
+    }
+
     // Helpers:
     private int getLastIndex() {return runTimeStack.size() - 1;}
 
