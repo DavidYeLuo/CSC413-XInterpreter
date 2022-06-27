@@ -31,12 +31,14 @@ public class VirtualMachine
         returnAddress  = new Stack<>();
         this.program   = program;
         programCounter = 0;
-        isRunning      = true;
+        isRunning      = false;
         isDumpModeOn   = false;
     }
 
     public void executeProgram()
     {
+        isRunning = true;
+
         ByteCode currentCode;
         while(isRunning)
         {
