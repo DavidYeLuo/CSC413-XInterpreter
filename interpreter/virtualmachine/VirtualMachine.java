@@ -93,7 +93,7 @@ public class VirtualMachine
         return runTimeStack.pop();
     }
 
-    public void goTo(int index) {programCounter = index;}
+    public void setProgramCounter(int index) {programCounter = index;}
 
     public void store(int desiredOffset)
     {

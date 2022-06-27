@@ -17,6 +17,6 @@ public class ReturnCode extends JumpCode
         virtualMachine.push(returnValue);
 
         // Transfer control back to the caller
-        virtualMachine.goTo(virtualMachine.popReturnAddress());
+        virtualMachine.setProgramCounter(virtualMachine.popReturnAddress());
     }
 }

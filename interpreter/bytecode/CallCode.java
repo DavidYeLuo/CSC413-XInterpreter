@@ -11,6 +11,6 @@ public class CallCode extends JumpCode
         virtualMachine.pushReturnAddress( virtualMachine.getProgramCounter() );
 
         // Jumps to the label
-        virtualMachine.goTo(getAddress());
+        virtualMachine.setProgramCounter(getAddress());
     }
 }
