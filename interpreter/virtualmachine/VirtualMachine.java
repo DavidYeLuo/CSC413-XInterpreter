@@ -60,7 +60,8 @@ public class VirtualMachine
                 }
 
                 // Shouldn't print these.
-                if (currentCode instanceof LabelCode || currentCode instanceof HaltCode || currentCode instanceof DumpCode)
+                if (currentCode instanceof LabelCode || currentCode.getClass() == HaltCode.class
+                        || currentCode.getClass() == DumpCode.class)
                 {
                     continue;
                 }
