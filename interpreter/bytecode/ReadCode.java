@@ -36,7 +36,9 @@ public class ReadCode extends ByteCode
                 isValidInput = true;
             } catch (Exception e)
             {
+                scanner.nextLine();
             }
         }
+        virtualMachine.push(userValue);
     }
 }

@@ -109,7 +109,10 @@ public class VirtualMachine
         return runTimeStack.pop();
     }
 
-    public void setProgramCounter(int index) {programCounter = index;}
+    public void setProgramCounter(int index) {
+        if(index < 0) return;
+        programCounter = index;
+    }
 
     public void store(int desiredOffset)
     {
@@ -122,8 +125,11 @@ public class VirtualMachine
 
     public void load(int desiredOffset)
     {
+        if(runTimeStack.getSize() == 0) return;
         // -1 because offset starts at 0
         int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
+        if(maxOffset < 0) return;
+
         int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
         if(offset <= 0) offset = 0;
 

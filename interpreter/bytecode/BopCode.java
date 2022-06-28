@@ -9,10 +9,11 @@ import java.util.ArrayList;
 public class BopCode extends ByteCode
 {
     private String strOperator;
+
     @Override
     public void init(ArrayList<String> args)
     {
-        if(ByteCode.isArgsNullOrEmpty(args)) return;
+        if (ByteCode.isArgsNullOrEmpty(args)) return;
         strOperator = args.get(0);
     }
 
@@ -21,10 +22,17 @@ public class BopCode extends ByteCode
     {
         // Retrieve operands
         int rightValue = virtualMachine.pop(1);
-        int leftValue = virtualMachine.pop(1);
+        int leftValue  = virtualMachine.pop(1);
 
-        // Retrieve operator
-        Operator operator = Operator.getOperator(strOperator);
+        if (rightValue == VirtualMachine.ERROR_RETURN_CODE
+                || leftValue == VirtualMachine.ERROR_RETURN_CODE)
+        {
+            System.out.println("Values aren't valid in BOP.");
+            return;
+        }
+
+            // Retrieve operator
+            Operator operator = Operator.getOperator(strOperator);
 
         // Perform calculation
         Operand result = operator.execute(leftValue, rightValue);

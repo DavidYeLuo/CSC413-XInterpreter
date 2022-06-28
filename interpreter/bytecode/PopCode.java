@@ -18,6 +18,12 @@ public class PopCode extends ByteCode
     @Override
     public void execute(VirtualMachine virtualMachine)
     {
+        if(popNumberOfTimes == VirtualMachine.ERROR_RETURN_CODE)
+        {
+            System.out.println("ERROR: pop has an error code in the param");
+            return;
+        }
         virtualMachine.pop(popNumberOfTimes);
     }
+
 }

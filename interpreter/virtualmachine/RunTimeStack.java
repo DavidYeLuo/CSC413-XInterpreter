@@ -32,7 +32,10 @@ public class RunTimeStack
 
     public int popFrame()            {return framePointer.pop();}
 
-    public int getCurrentFrameSize() {return runTimeStack.size() - framePointer.peek();}
+    public int getCurrentFrameSize() {
+        int currentSize = runTimeStack.size() - framePointer.peek();
+        return currentSize;
+    }
 
     /**
      * Takes the value located offset amount above the current frame pointer
