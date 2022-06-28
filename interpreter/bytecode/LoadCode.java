@@ -4,7 +4,7 @@ import interpreter.virtualmachine.VirtualMachine;
 
 import java.util.ArrayList;
 
-public class LoadCode extends ByteCode
+public class LoadCode extends ByteCode implements Dumpable
 {
     private int offset;
     private String identifier; // Used for Debug
@@ -21,5 +21,23 @@ public class LoadCode extends ByteCode
     public void execute(VirtualMachine virtualMachine)
     {
         virtualMachine.load(offset);
+    }
+
+    @Override
+    public String dump()
+    {
+        String result;
+
+        // Basic Syntax : LOAD <offset> <id> <load id>
+        if(identifier == null)
+        {
+            result = String.format("LOAD %d", offset);
+            return result;
+        }
+        result = String.format("LIT %d %s <load %s>",
+                               offset,
+                               identifier,
+                               identifier);
+        return result;
     }
 }
