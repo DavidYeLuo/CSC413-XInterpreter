@@ -39,4 +39,9 @@ public abstract class ByteCode
     {
         return args == null || args.isEmpty();
     }
+
+    protected static String getBaseId(String id)
+    {
+        return id.substring(0, id.indexOf("<"));
+    }
 }

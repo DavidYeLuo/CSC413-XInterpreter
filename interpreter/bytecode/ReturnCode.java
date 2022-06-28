@@ -49,7 +49,7 @@ public class ReturnCode extends ByteCode implements Dumpable
         if(optionalIdentifier == null) return result.toString();
 
         // Find base id
-        String baseId = optionalIdentifier.substring(0, optionalIdentifier.indexOf("<"));
+        String baseId = ByteCode.getBaseId(optionalIdentifier);
 
         result.append(String.format(" %s %s:%d", optionalIdentifier, baseId, returnValue));
         return result.toString();
