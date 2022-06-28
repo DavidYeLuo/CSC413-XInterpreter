@@ -16,9 +16,9 @@ public class StoreCode extends ByteCode implements Dumpable
     @Override
     public void init(ArrayList<String> args)
     {
-        if(ByteCode.isArgsNullOrEmpty(args)) return;
+        if (ByteCode.isArgsNullOrEmpty(args)) return;
         offset = ByteCode.parseInt(args.get(0));
-        if(args.size() > 1) identifier = args.get(1);
+        if (args.size() > 1) identifier = args.get(1);
     }
 
     @Override
@@ -31,20 +31,22 @@ public class StoreCode extends ByteCode implements Dumpable
     @Override
     public String dump()
     {
-        String result;
+        StringBuilder result = new StringBuilder();
         // Basic Syntax : STORE <offset> <id> <id>=<top-of-stack>
+        result.append(String.format("STORE %d", offset));
         if (identifier == null)
         {
-            result = String.format("STORE %d", offset);
-            return result;
+            return result.toString();
         }
-        // NOTE: if there isn't anything in the top of the stack.
-        // Then it will print the lowest value.
-        result = String.format("STORE %d %s %s=%d",
-                               offset,
-                               identifier,
-                               identifier,
-                               topOfTheStack);
-        return result;
+
+        result.append(String.format(" %s %s=%d", identifier, identifier));
+
+        if (topOfTheStack == VirtualMachine.ERROR_RETURN_CODE)
+        {
+            return result.toString();
+        }
+
+        result.append(String.format(" %s=%d", identifier, topOfTheStack));
+        return result.toString();
     }
 }
