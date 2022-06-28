@@ -58,7 +58,8 @@ public class VirtualMachine
             {
                 if(currentCode instanceof Dumpable)
                 {
-                    ((Dumpable) currentCode).dump();
+                    String dump = ((Dumpable) currentCode).dump();
+                    System.out.println(dump);
                 }
             }
 

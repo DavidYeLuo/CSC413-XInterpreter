@@ -2,5 +2,5 @@ package interpreter.bytecode;
 
 public interface Dumpable
 {
-   public void dump();
+   public String dump();
 }
