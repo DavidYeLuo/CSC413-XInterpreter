@@ -10,7 +10,7 @@ public class FalseBranchCode extends JumpCode
         int topStack = virtualMachine.pop(1);
         if(topStack == VirtualMachine.ERROR_RETURN_CODE)
         {
-            System.out.println("ERROR: top of the stack is empty");
+//            System.out.println("ERROR: top of the stack is empty");
             return;
         }
         if(topStack == 0) virtualMachine.setProgramCounter(getAddress());

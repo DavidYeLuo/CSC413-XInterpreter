@@ -27,7 +27,7 @@ public class BopCode extends ByteCode
         if (rightValue == VirtualMachine.ERROR_RETURN_CODE
                 || leftValue == VirtualMachine.ERROR_RETURN_CODE)
         {
-            System.out.println("Values aren't valid in BOP.");
+//            System.out.println("Values aren't valid in BOP.");
             return;
         }
 
