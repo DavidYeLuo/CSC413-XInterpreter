@@ -12,6 +12,7 @@ public class CallCode extends JumpCode implements Dumpable
     @Override
     public void init(ArrayList<String> args)
     {
+        super.init(args);
         this.args = new ArrayList<>();
         if(ByteCode.isArgsNullOrEmpty(args)) return;
         identifier = args.get(0);
@@ -48,7 +49,7 @@ public class CallCode extends JumpCode implements Dumpable
         StringBuilder result = new StringBuilder();
 
         result.append("CALL");
-        if(identifier == null) return result.toString();
+        if(identifier == null || args.isEmpty()) return result.toString();
         String argsFormat = args.toString().replace( "[", "(" )
                 .replace("]", ")");
 

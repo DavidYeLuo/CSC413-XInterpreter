@@ -63,6 +63,8 @@ public class VirtualMachine
                 if (currentCode instanceof LabelCode || currentCode.getClass() == HaltCode.class
                         || currentCode.getClass() == DumpCode.class)
                 {
+                    // Move on to the next ByteCode
+                    programCounter++;
                     continue;
                 }
                 runTimeStack.dump();
