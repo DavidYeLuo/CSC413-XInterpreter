@@ -2,7 +2,6 @@ package interpreter.virtualmachine;
 
 import interpreter.bytecode.*;
 
-import java.util.HashMap;
 import java.util.Stack;
 
 public class VirtualMachine
@@ -57,11 +56,15 @@ public class VirtualMachine
                 {
                     String dump = ((Dumpable) currentCode).dump();
                     System.out.println(dump);
+                } else
+                {
+                    String simpleName = currentCode.getClass().getSimpleName();
+                    System.out.println(simpleName);
                 }
 
                 // Shouldn't print these.
-                if (currentCode instanceof LabelCode || currentCode.getClass() == HaltCode.class
-                        || currentCode.getClass() == DumpCode.class)
+                if (currentCode instanceof LabelCode || currentCode.getClass() == HaltCode.class ||
+                        currentCode.getClass() == DumpCode.class)
                 {
                     // Move on to the next ByteCode
                     programCounter++;
