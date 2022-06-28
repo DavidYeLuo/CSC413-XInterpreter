@@ -39,7 +39,7 @@ public class StoreCode extends ByteCode implements Dumpable
             return result.toString();
         }
 
-        result.append(String.format(" %s %s=%d", identifier, identifier));
+        result.append(String.format(" %s", identifier));
 
         if (topOfTheStack == VirtualMachine.ERROR_RETURN_CODE)
         {
