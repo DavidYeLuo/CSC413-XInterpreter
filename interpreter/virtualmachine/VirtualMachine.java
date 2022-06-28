@@ -1,7 +1,6 @@
 package interpreter.virtualmachine;
 
-import interpreter.bytecode.ByteCode;
-import interpreter.bytecode.Dumpable;
+import interpreter.bytecode.*;
 
 import java.util.HashMap;
 import java.util.Stack;
@@ -15,8 +14,6 @@ public class VirtualMachine
     private boolean        isRunning;
     private boolean        isDumpModeOn;
 
-    private HashMap<ByteCode, Dumpable> dumpableHashMap;
-
     /**
      * This is a flag for the pop methods to pop the current frame.
      */
@@ -28,7 +25,7 @@ public class VirtualMachine
      * two commands: pop and then push
      */
     public static final int PEEK_RUNTIMESTACK = Integer.MIN_VALUE + 41399;
-    public static final int POP_CLEAN_FRAME = Integer.MAX_VALUE;
+    public static final int POP_CLEAN_FRAME   = Integer.MAX_VALUE;
     public static final int ERROR_RETURN_CODE = Integer.MIN_VALUE;
 
     public VirtualMachine(Program program)
@@ -54,13 +51,20 @@ public class VirtualMachine
 
             // Quick and dirty implementation
             // Could use a hashmap to improve performance here.
-            if(isDumpModeOn)
+            if (isDumpModeOn)
             {
-                if(currentCode instanceof Dumpable)
+                if (currentCode instanceof Dumpable)
                 {
                     String dump = ((Dumpable) currentCode).dump();
                     System.out.println(dump);
                 }
+
+                // Shouldn't print these.
+                if (currentCode instanceof LabelCode || currentCode instanceof HaltCode || currentCode instanceof DumpCode)
+                {
+                    continue;
+                }
+                runTimeStack.dump();
             }
 
             programCounter++;
@@ -97,7 +101,7 @@ public class VirtualMachine
             if (desiredAmount == VirtualMachine.POP_FRAME)
             {
                 // Doesn't handle cleaning!
-                if(runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
+                if (runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
                 return runTimeStack.popFrame();
             } else if (desiredAmount == VirtualMachine.PEEK_RUNTIMESTACK)
             {
@@ -106,16 +110,16 @@ public class VirtualMachine
             {
                 // Shouldn't happen
                 System.out.println("Error: Popcode shouldn't get here.");
-                maximumPop = runTimeStack.getCurrentFrameSize();
+                maximumPop    = runTimeStack.getCurrentFrameSize();
                 popNumDecided = maximumPop;
             }
         } else
         {
-            if(runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
-            maximumPop = runTimeStack.getCurrentFrameSize();
+            if (runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
+            maximumPop    = runTimeStack.getCurrentFrameSize();
             popNumDecided = VirtualMachine.getValueBetweenZeroAndMax(desiredAmount, maximumPop);
 
-            if(popNumDecided <= 0) return ERROR_RETURN_CODE;
+            if (popNumDecided <= 0) return ERROR_RETURN_CODE;
         }
 
         for (int i = 0; i < popNumDecided - 1; i++)
@@ -125,8 +129,9 @@ public class VirtualMachine
         return runTimeStack.pop();
     }
 
-    public void setProgramCounter(int index) {
-        if(index < 0) return;
+    public void setProgramCounter(int index)
+    {
+        if (index < 0) return;
         programCounter = index;
     }
 
@@ -134,20 +139,20 @@ public class VirtualMachine
     {
         // -1 because offset starts at 0
         int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
-        int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
+        int offset    = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
 
         runTimeStack.store(offset);
     }
 
     public void load(int desiredOffset)
     {
-        if(runTimeStack.getSize() == 0) return;
+        if (runTimeStack.getSize() == 0) return;
         // -1 because offset starts at 0
         int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
-        if(maxOffset < 0) return;
+        if (maxOffset < 0) return;
 
         int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
-        if(offset <= 0) offset = 0;
+        if (offset <= 0) offset = 0;
 
         runTimeStack.load(offset);
     }
@@ -158,7 +163,7 @@ public class VirtualMachine
     {
         // -1 because offset starts at 0
         int maxOffset = runTimeStack.getSize() - 1;
-        int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
+        int offset    = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
 
         runTimeStack.newFrameAt(offset);
     }
@@ -167,22 +172,24 @@ public class VirtualMachine
 
     public void pushReturnAddress(int returnAddress) {this.returnAddress.push(returnAddress);}
 
-    public int popReturnAddress()                    {
-        if(returnAddress.isEmpty()) return ERROR_RETURN_CODE;
+    public int popReturnAddress()
+    {
+        if (returnAddress.isEmpty()) return ERROR_RETURN_CODE;
         return this.returnAddress.pop();
     }
 
-    public void setDumpMode(boolean mode)            {isDumpModeOn = mode;}
+    public void setDumpMode(boolean mode) {isDumpModeOn = mode;}
 
     // Helpers
     private static boolean isPopCommand(int number)
     {
         return number == VirtualMachine.PEEK_RUNTIMESTACK || number == VirtualMachine.POP_FRAME;
     }
+
     private static int getValueBetweenZeroAndMax(int value, int maxValue)
     {
-        if(value < 0) return 0;
-        if(value > maxValue) return maxValue;
+        if (value < 0) return 0;
+        if (value > maxValue) return maxValue;
 
         return value;
     }
