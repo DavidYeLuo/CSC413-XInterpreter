@@ -1,7 +1,9 @@
 package interpreter.virtualmachine;
 
 import interpreter.bytecode.ByteCode;
+import interpreter.bytecode.Dumpable;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 public class VirtualMachine
@@ -12,6 +14,8 @@ public class VirtualMachine
     private int            programCounter;
     private boolean        isRunning;
     private boolean        isDumpModeOn;
+
+    private HashMap<ByteCode, Dumpable> dumpableHashMap;
 
     /**
      * This is a flag for the pop methods to pop the current frame.
@@ -42,10 +46,21 @@ public class VirtualMachine
         isRunning = true;
 
         ByteCode currentCode;
+
         while (isRunning)
         {
             currentCode = program.getCode(programCounter);
             currentCode.execute(this);
+
+            // Quick and dirty implementation
+            // Could use a hashmap to improve performance here.
+            if(isDumpModeOn)
+            {
+                if(currentCode instanceof Dumpable)
+                {
+                    ((Dumpable) currentCode).dump();
+                }
+            }
 
             programCounter++;
         }
