@@ -19,6 +19,7 @@ public class ReturnCode extends ByteCode implements Dumpable
     @Override
     public void execute(VirtualMachine virtualMachine)
     {
+        // Store return value
         returnValue = virtualMachine.pop(1);
 
         // Clean up the frame AND removes the boundary
@@ -28,12 +29,8 @@ public class ReturnCode extends ByteCode implements Dumpable
         // Transfer control back to the caller
         // Stores the top of the stack
         int returnAddress = virtualMachine.popReturnAddress();
-        if(returnAddress == VirtualMachine.ERROR_RETURN_CODE)
-        {
-//            System.out.println("ERROR: empty return address stack.");
-            return;
-        }
-        virtualMachine.setProgramCounter(returnValue);
+        if(returnAddress == VirtualMachine.ERROR_RETURN_CODE) return;
+        virtualMachine.setProgramCounter(returnAddress);
 
         // Push return value to the caller's frame
         if(returnValue == VirtualMachine.ERROR_RETURN_CODE) return;
