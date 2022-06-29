@@ -59,7 +59,7 @@ public class VirtualMachine
                 }
 
                 // Shouldn't print these.
-                if (currentCode instanceof LabelCode || currentCode.getClass() == HaltCode.class ||
+                if (currentCode.getClass() == HaltCode.class ||
                         currentCode.getClass() == DumpCode.class)
                 {
                     // Move on to the next ByteCode
