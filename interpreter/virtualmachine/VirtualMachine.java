@@ -56,10 +56,6 @@ public class VirtualMachine
                 {
                     String dump = ((Dumpable) currentCode).dump();
                     System.out.println(dump);
-                } else
-                {
-                    String simpleName = currentCode.getClass().getSimpleName();
-                    System.out.println(simpleName);
                 }
 
                 // Shouldn't print these.
