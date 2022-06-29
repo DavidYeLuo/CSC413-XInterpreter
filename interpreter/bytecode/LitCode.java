@@ -35,6 +35,7 @@ public class LitCode extends ByteCode implements Dumpable
             return result;
         }
         result = String.format("LIT %d %s int %s",
+                               literal,
                                identifier,
                                identifier);
         return result;
