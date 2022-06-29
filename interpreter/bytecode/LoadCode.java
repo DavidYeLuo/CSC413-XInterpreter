@@ -34,7 +34,7 @@ public class LoadCode extends ByteCode implements Dumpable
             result = String.format("LOAD %d", offset);
             return result;
         }
-        result = String.format("LIT %d %s <load %s>",
+        result = String.format("LOAD %d %s <load %s>",
                                offset,
                                identifier,
                                identifier);
