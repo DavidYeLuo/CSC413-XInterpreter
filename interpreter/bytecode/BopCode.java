@@ -6,7 +6,7 @@ import interpreter.virtualmachine.VirtualMachine;
 
 import java.util.ArrayList;
 
-public class BopCode extends ByteCode
+public class BopCode extends ByteCode implements Dumpable
 {
     private String strOperator;
 
@@ -39,5 +39,11 @@ public class BopCode extends ByteCode
 
         // Push the result to the top of the stack
         virtualMachine.push(result.getValue());
+    }
+
+    @Override
+    public String dump()
+    {
+       return "BOP " + strOperator;
     }
 }
