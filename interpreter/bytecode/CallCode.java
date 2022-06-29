@@ -50,11 +50,13 @@ public class CallCode extends JumpCode implements Dumpable
         StringBuilder result = new StringBuilder();
 
         result.append("CALL");
-        if(identifier == null || args.isEmpty()) return result.toString();
-        String argsFormat = args.toString().replace( "[", "(" )
-                .replace("]", ")");
 
-        result.append(String.format(" %s %s(%s)", identifier, getBaseId(identifier), argsFormat));
+        if(identifier == null) return result.toString();
+        result.append(" " + identifier);
+        String argsFormat = args.toString().replace( "[", "" )
+                .replace("]", "");
+
+        result.append(String.format(" %s(%s)", getBaseId(identifier), argsFormat));
 
         return result.toString();
     }
