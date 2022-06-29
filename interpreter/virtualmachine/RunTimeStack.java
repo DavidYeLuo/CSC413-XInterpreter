@@ -90,7 +90,7 @@ public class RunTimeStack
             {
             }
         }
-        if(framePointer.get(framePointer.size()-1) == runTimeStack.size() + 1)
+        if(framePtr.get(framePointer.size()-1) == runTimeStack.size() + 1)
         {
             result.append("[]");
             System.out.println(result);
