@@ -24,7 +24,7 @@ public class ReadCode extends ByteCode implements Dumpable
     public void execute(VirtualMachine virtualMachine)
     {
         // Prompt user
-        System.out.println("Please enter an integer : ");
+        System.out.print("Please enter an integer : ");
 
         // Ask user for input. Repeat if value isn't an integer.
         boolean isValidInput = false;
