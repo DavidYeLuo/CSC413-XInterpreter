@@ -55,7 +55,9 @@ public class VirtualMachine
                 if (currentCode instanceof Dumpable)
                 {
                     String dump = ((Dumpable) currentCode).dump();
-                    System.out.println(dump);
+                    // System.out.println(dump); // TODO: Uncomment this after finish
+                    System.out.printf("%-20s Pc %d: \n", dump,
+                                      programCounter); // TODO: Remove after finish
                 }
 
                 // Shouldn't print these.
@@ -117,17 +119,19 @@ public class VirtualMachine
 
     /**
      * Checks for boundary conditions before calling popFrame
+     *
      * @return returns ERROR_RETURN_CODE if the frame stack is empty
      */
     private int requestPopFrame()
     {
-        if(runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
+        if (runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
         return runTimeStack.popFrame();
     }
 
     /**
      * Helper for pop(int)
      * Checks for boundaries before peeking.
+     *
      * @return returns ERROR_RETURN_CODE if RunTimeStack is empty
      */
     private int peek()
@@ -139,13 +143,13 @@ public class VirtualMachine
     /**
      * Helper for pop(int)
      * Checks for frame boundaries condition before calling pop
+     *
      * @param popAmount
      * @return
      */
     private int requestPop(int popAmount)
     {
-        // -1 because offset starts at 0
-        int maxPop     = runTimeStack.getCurrentFrameSize() - 1;
+        int maxPop     = runTimeStack.getCurrentFrameSize();
         int decidedPop = VirtualMachine.getValueBetweenZeroAndMax(popAmount, maxPop);
 
         if (decidedPop == 0) return ERROR_RETURN_CODE;
