@@ -55,9 +55,9 @@ public class VirtualMachine
                 if (currentCode instanceof Dumpable)
                 {
                     String dump = ((Dumpable) currentCode).dump();
-                    // System.out.println(dump); // TODO: Uncomment this after finish
-                    System.out.printf("%-20s Pc %d: \n", dump,
-                                      programCounter); // TODO: Remove after finish
+                    System.out.println(dump); // TODO: Uncomment this after finish
+//                    System.out.printf("%-40s Pc %d: \n", dump,
+//                                      programCounter); // TODO: Remove after finish
                 }
 
                 // Shouldn't print these.
