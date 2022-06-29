@@ -75,18 +75,28 @@ public class RunTimeStack
         if (framePtr.size() == 1)
         {
             result.append(runTimeStack);
+            System.out.println(runTimeStack);
+            return;
         }
         // This deals with anything greater than 1
         for (int i = 0; i < framePtr.size() - 1; i++)
         {
             try
             {
-                result.append(runTimeStack.subList(framePtr.get(i), framePtr.get(i + 1)));
+                result.append(runTimeStack.subList(framePtr.get(i), framePtr.get(i + 1)))
+                        .append(" ");
+
             } catch (Exception e)
             {
-                result.append("[]");
             }
         }
+        if(framePointer.get(framePointer.size()-1) == runTimeStack.size() + 1)
+        {
+            result.append("[]");
+            System.out.println(result);
+            return;
+        }
+        result.append(runTimeStack.subList(framePtr.get(framePtr.size()-1), runTimeStack.size()));
         System.out.println(result);
     }
 
