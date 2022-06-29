@@ -4,7 +4,7 @@ import interpreter.virtualmachine.VirtualMachine;
 
 import java.util.ArrayList;
 
-public class ArgsCode extends ByteCode
+public class ArgsCode extends ByteCode implements Dumpable
 {
     private int numOfArgs;
     @Override
@@ -18,5 +18,11 @@ public class ArgsCode extends ByteCode
     public void execute(VirtualMachine virtualMachine)
     {
         virtualMachine.newFrameAt(numOfArgs);
+    }
+
+    @Override
+    public String dump()
+    {
+        return "ARGS " + numOfArgs;
     }
 }
