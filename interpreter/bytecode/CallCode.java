@@ -34,7 +34,7 @@ public class CallCode extends JumpCode implements Dumpable
             element = virtualMachine.pop(1);
         }
         // push the arguments back
-        for(int i = args.size() - 1; i >= 0; i++)
+        for(int i = args.size() - 1; i >= 0; i--)
         {
             virtualMachine.push(args.get(i));
         }
