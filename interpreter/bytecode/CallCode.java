@@ -31,6 +31,7 @@ public class CallCode extends JumpCode implements Dumpable
         while(element != VirtualMachine.ERROR_RETURN_CODE)
         {
             args.add(element);
+            element = virtualMachine.pop(1);
         }
         // push the arguments back
         for(int i = args.size() - 1; i >= 0; i++)
