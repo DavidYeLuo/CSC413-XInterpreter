@@ -4,7 +4,7 @@ import interpreter.virtualmachine.VirtualMachine;
 
 import java.util.ArrayList;
 
-public class LabelCode extends ByteCode
+public class LabelCode extends ByteCode implements Dumpable
 {
     private String label;
 
@@ -28,5 +28,11 @@ public class LabelCode extends ByteCode
     public final String getLabel()
     {
         return label;
+    }
+
+    @Override
+    public String dump()
+    {
+        return "LABEL " + label;
     }
 }

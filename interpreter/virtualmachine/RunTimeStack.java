@@ -1,5 +1,7 @@
 package interpreter.virtualmachine;
 
+import com.sun.jdi.connect.ListeningConnector;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -30,9 +32,10 @@ public class RunTimeStack
     // FrameStack Methods
     public void newFrameAt(int offset) {framePointer.push(getLastIndex() + 1 - offset);}
 
-    public int popFrame()            {return framePointer.pop();}
+    public int popFrame() {return framePointer.pop();}
 
-    public int getCurrentFrameSize() {
+    public int getCurrentFrameSize()
+    {
         int currentSize = runTimeStack.size() - framePointer.peek();
         return currentSize;
     }
@@ -66,74 +69,35 @@ public class RunTimeStack
 
     public void dump()
     {
-        // Needed to not change the state of the RunTimeStack
-        Stack<Integer> pointerListClone = (Stack<Integer>) framePointer.clone();
+        ArrayList<Integer> framePtr = new ArrayList<>(framePointer);
+        StringBuilder      result   = new StringBuilder();
 
-        if (DEBUG)
+        if (framePtr.size() == 1)
         {
-            System.out.printf("FrameStack: %s\n", runTimeStack);
-            System.out.printf("Pointerstack: %s\n", pointerListClone);
-        }
-
-        // Build a list to help print
-        ArrayList<ArrayList<Integer>> frameList = new ArrayList<>();
-        ArrayList<Integer>            frame     = new ArrayList<>();
-
-        if (runTimeStack.isEmpty())
-        {
-            System.out.println("[]");
+            result.append(runTimeStack);
+            System.out.println(runTimeStack);
             return;
         }
-
-        int pointer = pointerListClone.pop();
-
-        // Makes sense to process backward because of stack data structure
-        for (int i = runTimeStack.size() - 1; i >= 0; i--)
+        // This deals with anything greater than 1
+        for (int i = 0; i < framePtr.size() - 1; i++)
         {
-            frame.add(0, runTimeStack.get(i));
-
-            if (i == pointer)
+            try
             {
-                frameList.add(0, frame);
-                frame = new ArrayList<>();
-                if (pointerListClone.isEmpty()) continue;
-                pointer = pointerListClone.pop();
+                result.append(runTimeStack.subList(framePtr.get(i), framePtr.get(i + 1)))
+                        .append(" ");
+
+            } catch (Exception e)
+            {
             }
         }
-
-        // Build a String to print
-        StringBuilder runTimeStackStringBuilder = new StringBuilder();
-        int           lastFrame                 = frameList.size() - 1;
-        int           lastIndex;
-        for (int _frame = 0; _frame <= lastFrame; _frame++)
+        if(framePointer.get(framePointer.size()-1) == runTimeStack.size() + 1)
         {
-            // Update lastIndex
-            lastIndex = frameList.get(_frame).size() - 1;
-
-            runTimeStackStringBuilder.append("[");
-            for (int frameIndex = 0; frameIndex <= lastIndex; frameIndex++)
-            {
-                runTimeStackStringBuilder.append(frameList.get(_frame).get(frameIndex));
-
-                if (frameIndex != lastIndex)
-                {
-                    runTimeStackStringBuilder.append(",");
-                }
-            }
-            runTimeStackStringBuilder.append("]");
-
-            if (_frame != lastFrame)
-            {
-                runTimeStackStringBuilder.append(" ");
-            }
+            result.append("[]");
+            System.out.println(result);
+            return;
         }
-        if (DEBUG)
-        {
-            System.out.printf("Raw Data: %s\n", frameList);
-        }
-
-        // Print
-        System.out.println(runTimeStackStringBuilder);
+        result.append(runTimeStack.subList(framePtr.get(framePtr.size()-1), runTimeStack.size()));
+        System.out.println(result);
     }
 
     public int getSize()
