@@ -30,7 +30,7 @@ public class NewFrameTest
     {
         TestHelper.pushNStack(virtualMachine, 10);
 
-        virtualMachine.newFrameAt(0);
+        virtualMachine.newFrameBelow(0);
 
         assertEquals(10, virtualMachine.pop(VirtualMachine.POP_FRAME));
     }
@@ -53,7 +53,7 @@ public class NewFrameTest
     {
         TestHelper.pushNStack(virtualMachine, 10);
 
-        virtualMachine.newFrameAt(3);
+        virtualMachine.newFrameBelow(3);
 
         assertEquals(7, virtualMachine.pop(VirtualMachine.POP_FRAME));
     }
@@ -63,7 +63,7 @@ public class NewFrameTest
     {
         TestHelper.pushNStack(virtualMachine, 10);
 
-        virtualMachine.newFrameAt(9);
+        virtualMachine.newFrameBelow(9);
 
         assertEquals(1, virtualMachine.pop(VirtualMachine.POP_FRAME));
     }
@@ -73,7 +73,7 @@ public class NewFrameTest
     {
         TestHelper.pushNStack(virtualMachine, 10);
 
-        virtualMachine.newFrameAt(10);
+        virtualMachine.newFrameBelow(10);
 
         assertEquals(1, virtualMachine.pop(VirtualMachine.POP_FRAME));
     }
@@ -83,7 +83,7 @@ public class NewFrameTest
     {
         TestHelper.pushNStack(virtualMachine, 10);
 
-        virtualMachine.newFrameAt(100);
+        virtualMachine.newFrameBelow(100);
 
         assertEquals(1, virtualMachine.pop(VirtualMachine.POP_FRAME));
     }
@@ -92,7 +92,7 @@ public class NewFrameTest
     {
         TestHelper.pushNStack(virtualMachine, 10);
 
-        virtualMachine.newFrameAt(-10);
+        virtualMachine.newFrameBelow(-10);
 
         assertEquals(10, virtualMachine.pop(VirtualMachine.POP_FRAME));
     }

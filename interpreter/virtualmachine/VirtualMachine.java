@@ -200,13 +200,21 @@ public class VirtualMachine
 
     public void push(int value) {runTimeStack.push(value);}
 
-    public void newFrameAt(int desiredOffset)
+    public void newFrameBelow(int desiredOffset)
     {
         // -1 because offset starts at 0
         int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
         int offset    = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
 
-        runTimeStack.newFrameAt(offset);
+        int topIndex = runTimeStack.getSize() - 1;
+        int decidedIndex = topIndex - offset;
+
+        if(topIndex + offset < 0)
+        {
+            decidedIndex = 0;
+        }
+
+        runTimeStack.newFrameAt(decidedIndex);
     }
 
     public int getProgramCounter()                   {return programCounter;}

@@ -1,7 +1,6 @@
 package VirtualMachine;
 
 import interpreter.virtualmachine.Program;
-import interpreter.virtualmachine.RunTimeStack;
 import interpreter.virtualmachine.VirtualMachine;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -111,7 +110,7 @@ public class StoreTest
     {
         TestHelper.pushNStack(virtualMachine, 9);
         virtualMachine.push(13456);
-        virtualMachine.newFrameAt(5);
+        virtualMachine.newFrameBelow(5);
 
         virtualMachine.store(0);
         TestHelper.popNStack(virtualMachine, 4);
@@ -123,7 +122,7 @@ public class StoreTest
     {
         TestHelper.pushNStack(virtualMachine, 9);
         virtualMachine.push(13456);
-        virtualMachine.newFrameAt(4);
+        virtualMachine.newFrameBelow(4);
 
         virtualMachine.store(3);
 
