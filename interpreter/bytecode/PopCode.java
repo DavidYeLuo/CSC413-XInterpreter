@@ -4,7 +4,7 @@ import interpreter.virtualmachine.VirtualMachine;
 
 import java.util.ArrayList;
 
-public class PopCode extends ByteCode
+public class PopCode extends ByteCode implements Dumpable
 {
     private int popNumberOfTimes;
 
@@ -26,4 +26,9 @@ public class PopCode extends ByteCode
         virtualMachine.pop(popNumberOfTimes);
     }
 
+    @Override
+    public String dump()
+    {
+        return "POP " + popNumberOfTimes;
+    }
 }
