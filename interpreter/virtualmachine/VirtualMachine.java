@@ -152,7 +152,6 @@ public class VirtualMachine
         // -1 because offset starts at 0
         int maxOffset = this.getCurrentFrameSize() - 1;
         int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
-        if (offset <= 0) offset = 0;
 
         runTimeStack.load(offset);
     }
@@ -162,7 +161,7 @@ public class VirtualMachine
     public void newFrameAt(int desiredOffset)
     {
         // -1 because offset starts at 0
-        int maxOffset = runTimeStack.getSize() - 1;
+        int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
         int offset    = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
 
         runTimeStack.newFrameAt(offset);
@@ -186,14 +185,29 @@ public class VirtualMachine
         int size = runTimeStack.getCurrentFrameSize();
         return size < 0? 0 : size;
     }
+
+    /**
+     * Checks if the number is a pop command and not a number.
+     * @param number
+     * @return
+     */
     private static boolean isPopCommand(int number)
     {
         return number == VirtualMachine.PEEK_RUNTIMESTACK || number == VirtualMachine.POP_FRAME;
     }
 
+    /**
+     * Gives a value from 0 to maxValue
+     * If the value is less than 0 then return 0
+     * If the value is greater than maxValue then return maxValue
+     * @param value Will be treated as a natural number
+     * @param maxValue Will be treated as natural number
+     * @return
+     */
     private static int getValueBetweenZeroAndMax(int value, int maxValue)
     {
-        if (value < 0) return 0;
+        if (value < 0) value = 0;
+        if (maxValue < 0) maxValue = 0;
         if (value > maxValue) return maxValue;
 
         return value;
