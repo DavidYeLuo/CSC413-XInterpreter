@@ -93,9 +93,6 @@ public class VirtualMachine
      */
     public int pop(int desiredAmount)
     {
-        int maximumPop;
-        int popNumDecided; // the amount of pop decided
-
         boolean isCommand = VirtualMachine.isPopCommand(desiredAmount);
         if (isCommand)
         {
@@ -103,28 +100,69 @@ public class VirtualMachine
             if (desiredAmount == VirtualMachine.POP_FRAME)
             {
                 // Doesn't handle cleaning!
-                if (runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
-                return runTimeStack.popFrame();
+                return requestPopFrame();
             } else if (desiredAmount == VirtualMachine.PEEK_RUNTIMESTACK)
             {
-                return runTimeStack.peek();
+                return peek();
             } else
             {
                 // Shouldn't happen
-                System.out.println("Error: Popcode shouldn't get here.");
-                maximumPop = this.getCurrentFrameSize();
-                popNumDecided = maximumPop;
+                System.out.println("Error: Popcode command isn't found (Shouldn't be possible.)");
+                requestPop(VirtualMachine.POP_CLEAN_FRAME);
+                return ERROR_RETURN_CODE;
             }
-        } else
-        {
-            if(runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
-            maximumPop = this.getCurrentFrameSize();
-            popNumDecided = VirtualMachine.getValueBetweenZeroAndMax(desiredAmount, maximumPop);
-
-            if (popNumDecided <= 0) return ERROR_RETURN_CODE;
         }
+        return requestPop(desiredAmount);
+    }
 
-        for (int i = 0; i < popNumDecided - 1; i++)
+    /**
+     * Checks for boundary conditions before calling popFrame
+     * @return returns ERROR_RETURN_CODE if the frame stack is empty
+     */
+    private int requestPopFrame()
+    {
+        if(runTimeStack.getFrameListSize() <= 0) return ERROR_RETURN_CODE;
+        return runTimeStack.popFrame();
+    }
+
+    /**
+     * Helper for pop(int)
+     * Checks for boundaries before peeking.
+     * @return returns ERROR_RETURN_CODE if RunTimeStack is empty
+     */
+    private int peek()
+    {
+        if (runTimeStack.getSize() == 0) return ERROR_RETURN_CODE;
+        return runTimeStack.peek();
+    }
+
+    /**
+     * Helper for pop(int)
+     * Checks for frame boundaries condition before calling pop
+     * @param popAmount
+     * @return
+     */
+    private int requestPop(int popAmount)
+    {
+        // -1 because offset starts at 0
+        int maxPop     = runTimeStack.getCurrentFrameSize() - 1;
+        int decidedPop = VirtualMachine.getValueBetweenZeroAndMax(popAmount, maxPop);
+
+        if (decidedPop == 0) return ERROR_RETURN_CODE;
+
+        return callPop(decidedPop);
+    }
+
+    /**
+     * Helper to requestPop(int)
+     * Goes to the runTimeStack to call pop
+     *
+     * @param popAmount
+     * @return
+     */
+    private int callPop(int popAmount)
+    {
+        for (int i = 0; i < popAmount - 1; i++)
         {
             runTimeStack.pop();
         }
@@ -151,7 +189,7 @@ public class VirtualMachine
         if (runTimeStack.getSize() == 0) return;
         // -1 because offset starts at 0
         int maxOffset = this.getCurrentFrameSize() - 1;
-        int offset = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
+        int offset    = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
 
         runTimeStack.load(offset);
     }
@@ -183,11 +221,12 @@ public class VirtualMachine
     private int getCurrentFrameSize()
     {
         int size = runTimeStack.getCurrentFrameSize();
-        return size < 0? 0 : size;
+        return size < 0 ? 0 : size;
     }
 
     /**
      * Checks if the number is a pop command and not a number.
+     *
      * @param number
      * @return
      */
@@ -200,7 +239,8 @@ public class VirtualMachine
      * Gives a value from 0 to maxValue
      * If the value is less than 0 then return 0
      * If the value is greater than maxValue then return maxValue
-     * @param value Will be treated as a natural number
+     *
+     * @param value    Will be treated as a natural number
      * @param maxValue Will be treated as natural number
      * @return
      */
