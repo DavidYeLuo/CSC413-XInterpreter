@@ -6,7 +6,7 @@ import interpreter.virtualmachine.VirtualMachine;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadCode extends ByteCode
+public class ReadCode extends ByteCode implements Dumpable
 {
     private int userValue;
 
@@ -39,5 +39,12 @@ public class ReadCode extends ByteCode
                 scanner.nextLine();
             }
         }
+        virtualMachine.push(userValue);
+    }
+
+    @Override
+    public String dump()
+    {
+        return "READ";
     }
 }
