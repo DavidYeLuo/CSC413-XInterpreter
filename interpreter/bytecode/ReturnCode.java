@@ -25,10 +25,6 @@ public class ReturnCode extends ByteCode implements Dumpable
         virtualMachine.pop(virtualMachine.POP_CLEAN_FRAME);
         virtualMachine.pop(VirtualMachine.POP_FRAME);
 
-        // Push return value to the caller's frame
-        if(returnValue == VirtualMachine.ERROR_RETURN_CODE)
-            virtualMachine.push(returnValue);
-
         // Transfer control back to the caller
         // Stores the top of the stack
         int returnAddress = virtualMachine.popReturnAddress();
@@ -38,6 +34,10 @@ public class ReturnCode extends ByteCode implements Dumpable
             return;
         }
         virtualMachine.setProgramCounter(returnValue);
+
+        // Push return value to the caller's frame
+        if(returnValue == VirtualMachine.ERROR_RETURN_CODE) return;
+        virtualMachine.push(returnValue);
     }
 
     @Override
