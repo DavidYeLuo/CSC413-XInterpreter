@@ -2,7 +2,7 @@ package interpreter.bytecode;
 
 import interpreter.virtualmachine.VirtualMachine;
 
-public class FalseBranchCode extends JumpCode
+public class FalseBranchCode extends JumpCode implements Dumpable
 {
     @Override
     public void execute(VirtualMachine virtualMachine)
@@ -15,5 +15,12 @@ public class FalseBranchCode extends JumpCode
         }
         if(topStack == 0) virtualMachine.setProgramCounter(getAddress());
         if(topStack != 1) System.out.println("Error: value not expected");
+    }
+
+
+    @Override
+    public String dump()
+    {
+        return "FALSEBRANCH " + getLabel();
     }
 }
