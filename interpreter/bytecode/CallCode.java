@@ -22,7 +22,7 @@ public class CallCode extends JumpCode implements Dumpable
     public void execute(VirtualMachine virtualMachine)
     {
         // Stores the return address for later.
-        virtualMachine.pushReturnAddress( virtualMachine.getProgramCounter() );
+        virtualMachine.pushReturnAddress( virtualMachine.getProgramCounter());
 
         // Not a clever way to find arguments...
         // Trying to pop the frame to copy their value
@@ -56,6 +56,6 @@ public class CallCode extends JumpCode implements Dumpable
 
         result.append(String.format(" %s %s(%s)", identifier, getBaseId(identifier), argsFormat));
 
-        return args.toString();
+        return result.toString();
     }
 }
