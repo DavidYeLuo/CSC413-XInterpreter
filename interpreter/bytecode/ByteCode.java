@@ -42,6 +42,7 @@ public abstract class ByteCode
 
     protected static String getBaseId(String id)
     {
+        if(!id.contains("<")) return id;
         return id.substring(0, id.indexOf("<"));
     }
 }
