@@ -44,6 +44,6 @@ public class BopCode extends ByteCode implements Dumpable
     @Override
     public String dump()
     {
-       return "BOP " + strOperator;
+       return "READ";
     }
 }
