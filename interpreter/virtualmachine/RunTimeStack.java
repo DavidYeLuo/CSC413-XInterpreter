@@ -30,7 +30,11 @@ public class RunTimeStack
     public int pop()          {return runTimeStack.remove(getLastIndex());}
 
     // FrameStack Methods
-    public void newFrameAt(int value) {framePointer.push(value);}
+    public void newFrameAt(int offset)
+    {
+        int lastIndex = runTimeStack.size();
+        framePointer.push(runTimeStack.size() - offset);
+    }
 
     public int popFrame() {return framePointer.pop();}
 

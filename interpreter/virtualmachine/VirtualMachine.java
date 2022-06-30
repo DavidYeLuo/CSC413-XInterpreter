@@ -56,8 +56,8 @@ public class VirtualMachine
                 {
                     String dump = ((Dumpable) currentCode).dump();
                     System.out.println(dump); // TODO: Uncomment this after finish
-//                    System.out.printf("%-40s Pc %d: \n", dump,
-//                                      programCounter); // TODO: Remove after finish
+                    //                    System.out.printf("%-40s Pc %d: \n", dump,
+                    //                                      programCounter); // TODO: Remove after finish
                 }
 
                 // Shouldn't print these.
@@ -200,21 +200,9 @@ public class VirtualMachine
 
     public void push(int value) {runTimeStack.push(value);}
 
-    public void newFrameBelow(int desiredOffset)
+    public void newFrameAt(int desiredOffset)
     {
-        // -1 because offset starts at 0
-        int maxOffset = runTimeStack.getCurrentFrameSize() - 1;
-        int offset    = VirtualMachine.getValueBetweenZeroAndMax(desiredOffset, maxOffset);
-
-        int topIndex = runTimeStack.getSize() - 1;
-        int decidedIndex = topIndex - offset;
-
-        if(topIndex + offset < 0)
-        {
-            decidedIndex = 0;
-        }
-
-        runTimeStack.newFrameAt(decidedIndex);
+        runTimeStack.newFrameAt(desiredOffset);
     }
 
     public int getProgramCounter()                   {return programCounter;}
@@ -259,6 +247,15 @@ public class VirtualMachine
     private static int getValueBetweenZeroAndMax(int value, int maxValue)
     {
         if (value < 0) value = 0;
+        if (maxValue < 0) maxValue = 0;
+        if (value > maxValue) return maxValue;
+
+        return value;
+    }
+
+    private static int getValueBetweenOneAndMax(int value, int maxValue)
+    {
+        if (value < 1) value = 1;
         if (maxValue < 0) maxValue = 0;
         if (value > maxValue) return maxValue;
 
