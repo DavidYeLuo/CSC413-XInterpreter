@@ -1,7 +1,7 @@
 # CSC 413 - Project Two - The Interpreter
 
-## Student Name  : Name here
+## Student Name  : David Ye Luo
 
-## Student ID    : ID here
+## Student ID    : 917051959
 
-## Student Email : Email here
+## Student Email : dyeluo@mail.sfsu.edu
