@@ -110,7 +110,7 @@ public class StoreTest
     {
         TestHelper.pushNStack(virtualMachine, 9);
         virtualMachine.push(13456);
-        virtualMachine.newFrameBelow(5);
+        virtualMachine.newFrameAt(5);
 
         virtualMachine.store(0);
         TestHelper.popNStack(virtualMachine, 4);
@@ -122,7 +122,7 @@ public class StoreTest
     {
         TestHelper.pushNStack(virtualMachine, 9);
         virtualMachine.push(13456);
-        virtualMachine.newFrameBelow(4);
+        virtualMachine.newFrameAt(4);
 
         virtualMachine.store(3);
 
