@@ -60,6 +60,7 @@ public class RunTimeStack
 
     /**
      * Takes the top of the stack and place it at an offset above the current frame pointer
+     * Doesn't handle popping the top of the stack.
      *
      * @param offset
      * @return value that is stored

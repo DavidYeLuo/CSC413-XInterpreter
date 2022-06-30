@@ -58,9 +58,7 @@ public class VirtualMachine
                 if (currentCode instanceof Dumpable)
                 {
                     String dump = ((Dumpable) currentCode).dump();
-                    System.out.println(dump); // TODO: Uncomment this after finish
-                    //                    System.out.printf("%-40s Pc %d: \n", dump,
-                    //                                      programCounter); // TODO: Remove after finish
+                    System.out.println(dump);
                 }
 
                 // Shouldn't print these.
@@ -92,6 +90,9 @@ public class VirtualMachine
      * <p>
      * To peek the top of the run time stack:
      * set the desiredAmount as VirtualMachine.POP_PEEK_STACKFRAME
+     * <p>
+     * An easy way to pop every element in the current frame is using
+     * VirtualMachine.POP_CLEAN_FRAME.
      *
      * @param desiredAmount
      * @return returns the latests pop value
