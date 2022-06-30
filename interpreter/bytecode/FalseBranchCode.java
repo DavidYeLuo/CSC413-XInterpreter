@@ -8,10 +8,6 @@ public class FalseBranchCode extends JumpCode implements Dumpable
     public void execute(VirtualMachine virtualMachine)
     {
         int topStack = virtualMachine.pop(1);
-        if(topStack == VirtualMachine.ERROR_RETURN_CODE)
-        {
-            return;
-        }
         if(topStack == 0) virtualMachine.setProgramCounter(getAddress());
     }
 

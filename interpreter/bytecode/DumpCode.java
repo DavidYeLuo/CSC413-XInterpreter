@@ -10,15 +10,12 @@ public class DumpCode extends ByteCode
     @Override
     public void init(ArrayList<String> args)
     {
-        if(ByteCode.isArgsNullOrEmpty(args)) return;
         mode = args.get(0);
     }
 
     @Override
     public void execute(VirtualMachine virtualMachine)
     {
-        if(mode == null) return;
-
         boolean modeInBool;
         if(mode.equals("ON"))
         {
@@ -30,6 +27,7 @@ public class DumpCode extends ByteCode
         }
         else
         {
+            // Should not be possible
             System.out.println("Not the right argument in the DumpCode.");
             modeInBool = false;
         }

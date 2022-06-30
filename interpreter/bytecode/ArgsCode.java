@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class ArgsCode extends ByteCode implements Dumpable
 {
     private int numOfArgs;
+
     @Override
     public void init(ArrayList<String> args)
     {
-        if(ByteCode.isArgsNullOrEmpty(args)) return;
         numOfArgs = ByteCode.parseInt(args.get(0));
     }
 

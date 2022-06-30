@@ -13,7 +13,6 @@ public class BopCode extends ByteCode implements Dumpable
     @Override
     public void init(ArrayList<String> args)
     {
-        if (ByteCode.isArgsNullOrEmpty(args)) return;
         strOperator = args.get(0);
     }
 
@@ -24,15 +23,8 @@ public class BopCode extends ByteCode implements Dumpable
         int rightValue = virtualMachine.pop(1);
         int leftValue  = virtualMachine.pop(1);
 
-        if (rightValue == VirtualMachine.ERROR_RETURN_CODE
-                || leftValue == VirtualMachine.ERROR_RETURN_CODE)
-        {
-//            System.out.println("Values aren't valid in BOP.");
-            return;
-        }
-
-            // Retrieve operator
-            Operator operator = Operator.getOperator(strOperator);
+        // Retrieve operator
+        Operator operator = Operator.getOperator(strOperator);
 
         // Perform calculation
         Operand result = operator.execute(leftValue, rightValue);
@@ -44,6 +36,6 @@ public class BopCode extends ByteCode implements Dumpable
     @Override
     public String dump()
     {
-       return "BOP " + strOperator;
+        return "BOP " + strOperator;
     }
 }

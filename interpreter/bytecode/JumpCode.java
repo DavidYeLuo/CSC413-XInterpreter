@@ -1,5 +1,8 @@
 package interpreter.bytecode;
 
+/**
+ * Anything that derives from JumpCode will have their address resolved.
+ */
 public abstract class JumpCode extends LabelCode
 {
     private int resolvedAddress;

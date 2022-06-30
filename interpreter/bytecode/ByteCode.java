@@ -15,6 +15,7 @@ public abstract class ByteCode
     /**
      * Parse string to an int
      * If fail just return lowest integer value.
+     *
      * @param stringNumber
      * @return integer value
      */
@@ -28,7 +29,8 @@ public abstract class ByteCode
             return returnValue;
         } catch (Exception e)
         {
-            System.out.println("Error: Failed to parse in one of the ByteCodes." + "Returning lowest int value.");
+            System.out.println("Error: Failed to parse in one of the ByteCodes." +
+                                       "Returning lowest int value.");
             returnValue = Integer.MIN_VALUE;
 
             return returnValue;
@@ -42,7 +44,7 @@ public abstract class ByteCode
 
     protected static String getBaseId(String id)
     {
-        if(!id.contains("<")) return id;
+        if (!id.contains("<")) return id;
         return id.substring(0, id.indexOf("<"));
     }
 }

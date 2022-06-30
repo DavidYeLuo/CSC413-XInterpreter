@@ -12,7 +12,6 @@ public class LitCode extends ByteCode implements Dumpable
     @Override
     public void init(ArrayList<String> args)
     {
-        if(ByteCode.isArgsNullOrEmpty(args)) return;
         literal = ByteCode.parseInt(args.get(0));
         if(args.size() > 1) identifier = args.get(1);
     }

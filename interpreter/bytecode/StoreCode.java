@@ -16,7 +16,6 @@ public class StoreCode extends ByteCode implements Dumpable
     @Override
     public void init(ArrayList<String> args)
     {
-        if (ByteCode.isArgsNullOrEmpty(args)) return;
         offset = ByteCode.parseInt(args.get(0));
         if (args.size() > 1) identifier = args.get(1);
     }
@@ -31,8 +30,8 @@ public class StoreCode extends ByteCode implements Dumpable
     @Override
     public String dump()
     {
-        StringBuilder result = new StringBuilder();
         // Basic Syntax : STORE <offset> <id> <id>=<top-of-stack>
+        StringBuilder result = new StringBuilder();
         result.append(String.format("STORE %d", offset));
         if (identifier == null)
         {

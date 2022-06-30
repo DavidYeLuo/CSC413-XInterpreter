@@ -11,7 +11,6 @@ public class LabelCode extends ByteCode implements Dumpable
     @Override
     public void init(ArrayList<String> args)
     {
-        if(ByteCode.isArgsNullOrEmpty(args)) return;
         label = args.get(0);
     }
 

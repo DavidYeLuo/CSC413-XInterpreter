@@ -42,6 +42,8 @@ public class CallCode extends JumpCode implements Dumpable
 
         if (identifier == null) return result.toString();
         result.append(" " + identifier);
+        // Normally printing a list will give us in a format like this [1, 2, 3]
+        // We are going to remove those brackets and put the leftover inside the parenthesis.
         String argsFormat = args.toString().replace("[", "").replace("]", "");
 
         result.append(String.format(" %s(%s)", getBaseId(identifier), argsFormat));
