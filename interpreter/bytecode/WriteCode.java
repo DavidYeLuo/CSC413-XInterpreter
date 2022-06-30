@@ -4,7 +4,7 @@ import interpreter.virtualmachine.VirtualMachine;
 
 import java.util.ArrayList;
 
-public class WriteCode extends ByteCode
+public class WriteCode extends ByteCode implements Dumpable
 {
     @Override
     public void init(ArrayList<String> args)
@@ -17,5 +17,11 @@ public class WriteCode extends ByteCode
     {
         int topValue = virtualMachine.pop(VirtualMachine.PEEK_RUNTIMESTACK);
         System.out.println(topValue);
+    }
+
+    @Override
+    public String dump()
+    {
+        return "WRITE";
     }
 }
