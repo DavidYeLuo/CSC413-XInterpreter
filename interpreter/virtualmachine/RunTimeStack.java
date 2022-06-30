@@ -94,13 +94,13 @@ public class RunTimeStack
             {
             }
         }
-        if(framePtr.get(framePointer.size()-1) == runTimeStack.size() + 1)
+        if (framePtr.get(framePointer.size() - 1) == runTimeStack.size() + 1)
         {
             result.append("[]");
             System.out.println(result);
             return;
         }
-        result.append(runTimeStack.subList(framePtr.get(framePtr.size()-1), runTimeStack.size()));
+        result.append(runTimeStack.subList(framePtr.get(framePtr.size() - 1), runTimeStack.size()));
         System.out.println(result);
     }
 
@@ -114,8 +114,13 @@ public class RunTimeStack
         return framePointer.size();
     }
 
+    public List<Integer> getArgs(int num)
+    {
+        int startOfFrame = framePointer.peek();
+        return runTimeStack.subList(startOfFrame, startOfFrame + num);
+    }
+
     // Helpers:
     private int getLastIndex() {return runTimeStack.size() - 1;}
 
-    private int getLastFrame() {return framePointer.peek();}
 }

@@ -48,7 +48,7 @@ public class ReturnCode extends ByteCode implements Dumpable
         // Find base id
         String baseId = ByteCode.getBaseId(optionalIdentifier);
 
-        result.append(String.format(" %s %s:%d", optionalIdentifier, baseId, returnValue));
+        result.append(String.format(" %s EXIT %s:%d", optionalIdentifier, baseId, returnValue));
         return result.toString();
     }
 }

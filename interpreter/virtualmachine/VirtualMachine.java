@@ -2,6 +2,8 @@ package interpreter.virtualmachine;
 
 import interpreter.bytecode.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 public class VirtualMachine
@@ -12,6 +14,7 @@ public class VirtualMachine
     private int            programCounter;
     private boolean        isRunning;
     private boolean        isDumpModeOn;
+    private int            numOfArgs;
 
     /**
      * This is a flag for the pop methods to pop the current frame.
@@ -217,6 +220,13 @@ public class VirtualMachine
 
     public void setDumpMode(boolean mode) {isDumpModeOn = mode;}
 
+    public void setNumOfArgs(int num)     {numOfArgs = num;}
+
+    public List<Integer> getArgs()
+    {
+        return runTimeStack.getArgs(numOfArgs);
+    }
+
     // Helpers
     private int getCurrentFrameSize()
     {
@@ -247,15 +257,6 @@ public class VirtualMachine
     private static int getValueBetweenZeroAndMax(int value, int maxValue)
     {
         if (value < 0) value = 0;
-        if (maxValue < 0) maxValue = 0;
-        if (value > maxValue) return maxValue;
-
-        return value;
-    }
-
-    private static int getValueBetweenOneAndMax(int value, int maxValue)
-    {
-        if (value < 1) value = 1;
         if (maxValue < 0) maxValue = 0;
         if (value > maxValue) return maxValue;
 
