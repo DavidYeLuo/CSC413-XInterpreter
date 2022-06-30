@@ -17,7 +17,7 @@ public class ArgsCode extends ByteCode implements Dumpable
     @Override
     public void execute(VirtualMachine virtualMachine)
     {
-        virtualMachine.newFrameBelow(numOfArgs);
+        virtualMachine.newFrameAt(numOfArgs);
     }
 
     @Override
