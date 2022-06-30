@@ -25,7 +25,7 @@ public class StoreCode extends ByteCode implements Dumpable
     public void execute(VirtualMachine virtualMachine)
     {
         virtualMachine.store(offset);
-        topOfTheStack = virtualMachine.pop(VirtualMachine.PEEK_RUNTIMESTACK);
+        topOfTheStack = virtualMachine.pop(1);
     }
 
     @Override
